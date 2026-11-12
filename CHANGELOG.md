@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-12
+
 ### Added
 
 - One device per US river gauge of the NOAA National Water Prediction Service
@@ -24,3 +26,6 @@ the notes of the version's GitHub Release.
 - Dashboard widget "River gauges": every gauge on one line, or one gauge with
   its forecast crest and flood stage.
 - Texts and documentation in English, French, German and Spanish.
+
+[Unreleased]: https://github.com/guim31/gladys-nwps/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/guim31/gladys-nwps/releases/tag/v1.0.0
