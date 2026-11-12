@@ -87,6 +87,8 @@ sont en lecture seule :
 Une mesure de plus de 24 heures n'est pas renvoyée : la hauteur affiche alors « pas de valeur
 récente » dans Gladys, et la catégorie « Pas de mesure récente ».
 
+Quand une prévision est retirée, le pic prévu garde sa dernière valeur : son heure et sa catégorie indiquent alors « Aucune prévision en cours », et son niveau de crue 0.
+
 ### Catégories de crue
 
 Le NWS définit, pour chaque point de prévision et beaucoup d'autres stations, un **seuil
@@ -119,7 +121,7 @@ ou prévue, la nouvelle catégorie. Variables pour vos messages : `gauge_name`, 
 `source_name` (observée ou prévue), `value` (la hauteur avec son unité) et `time` (de la mesure ou
 du pic), dans la langue de la configuration.
 
-Il se déclenche une fois par hausse : de nouveau seulement après une baisse. Les dernières
+Il se déclenche une fois par hausse : de nouveau seulement après une baisse, ou après le retrait de la prévision. Les dernières
 catégories sont gardées dans `/data` : une hausse pendant un redémarrage se déclenche une fois, et
 la première mesure d'une nouvelle station ne déclenche rien.
 

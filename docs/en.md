@@ -83,6 +83,8 @@ are read-only:
 A reading older than 24 hours is not sent again: the level then shows "no recent value" in
 Gladys, and the category "No recent reading".
 
+When a forecast is withdrawn, the forecast crest keeps its last value: its time and category then read "No current forecast", and its flood level 0.
+
 ### Flood categories
 
 The NWS defines, for each forecast point and many other gauges, an **action stage** (time to
@@ -113,7 +115,7 @@ forecast, the new category. Variables for your messages: `gauge_name`, `category
 `source_name` (observed or forecast), `value` (the level with its unit) and `time` (of the
 reading or of the crest), in the language of the configuration.
 
-It fires once per rise: again only after the category went down. The last categories are kept
+It fires once per rise: again only after the category went down, or after the forecast was withdrawn. The last categories are kept
 in `/data`, so a rise during a restart fires once, and the first reading of a new gauge fires
 nothing.
 

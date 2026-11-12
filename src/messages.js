@@ -124,7 +124,6 @@ export const SEARCH = {
     noHouse: 'No house of Gladys has a location: set it in Settings → Houses.',
     unavailable: 'The NWPS API does not answer, try again in a few minutes.',
     forecast: 'forecast',
-    noStages: 'no flood stages',
   },
   fr: {
     found: ({ count }) => `${count} station(s), la plus proche en premier :`,
@@ -132,7 +131,6 @@ export const SEARCH = {
     noHouse: "Aucune maison de Gladys n'a de position : réglez-la dans Paramètres → Maisons.",
     unavailable: "L'API NWPS ne répond pas, réessayez dans quelques minutes.",
     forecast: 'prévision',
-    noStages: 'sans seuils de crue',
   },
   de: {
     found: ({ count }) => `${count} Pegel, der nächste zuerst:`,
@@ -140,7 +138,6 @@ export const SEARCH = {
     noHouse: 'Kein Haus in Gladys hat einen Standort: Lege ihn unter Einstellungen → Häuser fest.',
     unavailable: 'Die NWPS-API antwortet nicht, versuche es in ein paar Minuten erneut.',
     forecast: 'Prognose',
-    noStages: 'keine Hochwasserstufen',
   },
   es: {
     found: ({ count }) => `${count} estación(es), la más cercana primero:`,
@@ -148,7 +145,6 @@ export const SEARCH = {
     noHouse: 'Ninguna casa de Gladys tiene ubicación: configúrela en Ajustes → Casas.',
     unavailable: 'La API del NWPS no responde, inténtelo de nuevo en unos minutos.',
     forecast: 'previsión',
-    noStages: 'sin umbrales de inundación',
   },
 };
 

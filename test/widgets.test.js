@@ -88,3 +88,27 @@ test('the widget shows the name given in Gladys, and a removed gauge says so', a
   const gone = await get(world, { gauge: device.external_id });
   assert.equal(gone.components[0].text, 'This gauge is no longer followed.');
 });
+
+test('the flow tile says cfs in US units, and only features of the device get a tile', async (t) => {
+  const world = await createWorld({ config: { gauges: APAM2 } });
+  t.after(() => world.app.stop());
+  const device = await create(world, APAM2);
+  // A flow reading appears after creation: no feature, so no tile.
+  world.api.set(APAM2, 'observed', { secondary: 1.2, secondaryUnit: 'kcfs' });
+  await world.monitor.refresh();
+  const content = await get(world, { gauge: device.external_id });
+  assert.deepEqual(
+    content.components.filter((c) => c.type === 'value').map((c) => c.label),
+    ['Water level'],
+  );
+  const other = await createWorld({ config: { gauges: BRKM2 } });
+  t.after(() => other.app.stop());
+  const brkm2 = await create(other, BRKM2);
+  const tiles = (await get(other, { gauge: brkm2.external_id })).components.filter(
+    (c) => c.type === 'value',
+  );
+  assert.deepEqual(
+    tiles.map((c) => c.label),
+    ['Water level', 'Flow (cfs)'],
+  );
+});

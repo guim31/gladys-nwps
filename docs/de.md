@@ -88,6 +88,8 @@ schreibgeschützt:
 Eine Messung, die älter als 24 Stunden ist, wird nicht erneut gesendet: Der Wasserstand zeigt dann
 in Gladys „kein aktueller Wert“, und die Kategorie „Keine aktuelle Messung“.
 
+Wird eine Prognose zurückgezogen, behält der prognostizierte Scheitel seinen letzten Wert: Seine Zeit und Kategorie zeigen dann „Keine aktuelle Prognose“, seine Hochwasserstufe 0.
+
 ### Hochwasserkategorien
 
 Der NWS legt für jeden Prognosepunkt und viele andere Pegel einen **Aktionspegel** fest (Zeit zur
@@ -121,7 +123,7 @@ Nachrichten: `gauge_name`, `category_name`, `source_name` (gemessen oder vorherg
 (der Wert mit Einheit) und `time` (der Messung oder des Scheitels), in der Sprache der
 Konfiguration.
 
-Er löst einmal pro Anstieg aus: erneut erst, nachdem die Kategorie gesunken ist. Die letzten
+Er löst einmal pro Anstieg aus: erneut erst, nachdem die Kategorie gesunken ist oder die Prognose zurückgezogen wurde. Die letzten
 Kategorien werden in `/data` gespeichert: Ein Anstieg während eines Neustarts löst einmal aus, und
 die erste Messung eines neuen Pegels löst nichts aus.
 

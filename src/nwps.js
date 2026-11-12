@@ -122,7 +122,13 @@ export function parseGauge(raw) {
   const observed = parseStatus(raw?.status?.observed);
   const forecast = parseStatus(raw?.status?.forecast);
   const pedts = raw?.pedts ?? {};
-  const kind = String(pedts.observed ?? '').startsWith('Q') ? 'flow' : 'stage';
+  // The physical element (pedts) says it; the unit of the primary value when it is missing.
+  const primaryUnit = raw?.status?.observed?.primaryUnit ?? raw?.status?.forecast?.primaryUnit;
+  const kind =
+    String(pedts.observed ?? '').startsWith('Q') ||
+    (!pedts.observed && ['kcfs', 'cfs'].includes(primaryUnit))
+      ? 'flow'
+      : 'stage';
   const flood = raw?.flood;
   const stageUnit = flood?.stageUnits || 'ft';
   const flowUnit = flood?.flowUnits || 'cfs';

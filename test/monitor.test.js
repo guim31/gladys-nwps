@@ -44,7 +44,7 @@ test('metric units convert; a feature keeps the unit it was created with', async
   t.after(() => world.app.stop());
   const device = await create(world, BRKM2);
   assert.equal(last(world, device, 'stage'), 0.85);
-  assert.equal(last(world, device, 'flow'), 51.3);
+  assert.equal(last(world, device, 'flow'), 51.253);
   assert.equal(device.features.find((f) => f.type === 'flow').name, 'Débit');
   // The user goes back to feet without "Update": the created features stay in metres.
   await world.fake.configUpdated({ gauges: BRKM2, units: 'us' });
@@ -241,4 +241,38 @@ test('a normal refresh writes nothing at info; an outage one line, its end one l
   assert.equal(lines.length, 2, lines.map((l) => l.text).join('\n'));
   assert.equal(lines[0].level, 'warn');
   assert.match(lines[1].text, /answers again/);
+});
+
+test('a failed first start still sets the refresh timer', async (t) => {
+  t.mock.timers.enable({ apis: ['setInterval'] });
+  const api = createApi();
+  api.down = 503;
+  const world = await createWorld({ config: { gauges: BRKM2 }, api, timers: true });
+  t.after(() => world.app.stop());
+  assert.match(world.fake.connectionStatus.message.en, /does not answer/);
+  api.down = false;
+  t.mock.timers.tick(15 * MINUTE);
+  await world.monitor.running;
+  assert.equal(world.fake.connectionStatus.connected, true);
+  assert.ok(discovered(world, BRKM2), 'published once the API answers');
+});
+
+test('a successful poll after an outage clears the status', async (t) => {
+  const world = await createWorld({ config: { gauges: BRKM2 } });
+  t.after(() => world.app.stop());
+  const device = await create(world, BRKM2);
+  world.api.down = 503;
+  await cycle(world);
+  assert.equal(world.fake.connectionStatus.connected, false);
+  world.api.down = false;
+  world.clock.advance(8 * MINUTE);
+  await world.fake.poll(device);
+  assert.equal(world.fake.connectionStatus.connected, true);
+});
+
+test('a small creek in m³/s keeps three decimals', async (t) => {
+  const world = await createWorld({ config: { gauges: AAIT2, units: 'metric' } });
+  t.after(() => world.app.stop());
+  const device = await create(world, AAIT2);
+  assert.equal(last(world, device, 'flow'), 0.028);
 });

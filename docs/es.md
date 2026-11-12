@@ -87,6 +87,8 @@ funciones son de solo lectura:
 Una medición de más de 24 horas no se vuelve a enviar: el nivel muestra entonces «sin valor
 reciente» en Gladys, y la categoría «Sin medición reciente».
 
+Cuando se retira una previsión, la cresta prevista conserva su último valor: su hora y su categoría indican entonces «Sin previsión vigente», y su nivel de inundación 0.
+
 ### Categorías de inundación
 
 El NWS define, para cada punto de previsión y muchas otras estaciones, un **nivel de acción**
@@ -118,7 +120,7 @@ observada o prevista, la nueva categoría. Variables para sus mensajes: `gauge_n
 `category_name`, `source_name` (observada o prevista), `value` (el valor con su unidad) y `time`
 (de la medición o de la cresta), en el idioma de la configuración.
 
-Se dispara una vez por subida: de nuevo solo después de una bajada. Las últimas categorías se
+Se dispara una vez por subida: de nuevo solo después de una bajada, o después de retirarse la previsión. Las últimas categorías se
 guardan en `/data`: una subida durante un reinicio se dispara una vez, y la primera medición de una
 nueva estación no dispara nada.
 

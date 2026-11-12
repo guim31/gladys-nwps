@@ -72,7 +72,8 @@ export const forecastIsCurrent = (gauge) =>
 /** A value in ft or cfs with its unit, in a unit system: "2.78 ft", "1 810 cfs". */
 export function formatValue(value, kind, system, language) {
   const format = UNITS[system]?.[kind] ?? UNITS.us[kind];
-  return `${formatNumber(convert(value, kind, system), language, format.digits)} ${format.label}`;
+  const digits = format.displayDigits ?? format.digits;
+  return `${formatNumber(convert(value, kind, system), language, digits)} ${format.label}`;
 }
 
 export class Monitor {
@@ -98,6 +99,7 @@ export class Monitor {
     this.homeCodes = [];
     this.homeLookedUpAt = null;
     this.homeProblem = null;
+    this.homeLookupFailed = false;
     this.unknown = new Set();
     this.unavailable = false;
     this.levels = {}; // code -> { observed, forecast } ranks, see src/store.js
@@ -110,8 +112,10 @@ export class Monitor {
     const saved = await this.store.load();
     this.levels = saved.levels && typeof saved.levels === 'object' ? saved.levels : {};
     this.config = config;
-    await this.refresh({ discover: true, lookupHome: true });
+    // The timer first: a failed first refresh (Gladys or the NWPS down) must
+    // not leave the integration without its refresh.
     this.schedule();
+    await this.refresh({ discover: true, lookupHome: true });
     logger.info(`Following ${this.followed().length} gauge(s)`);
   }
 
@@ -228,9 +232,16 @@ export class Monitor {
     if (lookupHome || (codes === null && homeDue && this.config.homeRadiusMiles > 0)) {
       try {
         await this.lookupHome();
+        if (this.homeLookupFailed) {
+          this.homeLookupFailed = false;
+          logger.info('The gauges around the house are found again');
+        }
       } catch (err) {
-        // Keeps the gauges found before; the next refresh tries again.
-        logger.warn(`Cannot look up the gauges around the house: ${err.message}`);
+        // Keeps the gauges found before; the next refresh tries again. Logged once.
+        if (!this.homeLookupFailed) {
+          logger.warn(`Cannot look up the gauges around the house: ${err.message}`);
+        }
+        this.homeLookupFailed = true;
       }
     }
     const before = this.followed()
@@ -265,7 +276,7 @@ export class Monitor {
     } else if (!down && this.unavailable && failures === 0) {
       logger.info('The NWPS API answers again');
     }
-    if (codes === null || down) {
+    if (codes === null || down || failures === 0) {
       this.unavailable = down;
     }
     const after = this.followed()

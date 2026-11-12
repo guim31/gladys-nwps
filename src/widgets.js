@@ -19,7 +19,7 @@
 // -----------------------------------------------------------------------------
 
 import { WIDGET_COLORS } from '@gladysassistant/integration-sdk';
-import { gaugeCodeOfId, gaugeIds, hasFlow, hasStage } from './devices.js';
+import { gaugeCodeOfId, gaugeIds, systemOfFeature } from './devices.js';
 import { categoryColor, categoryName, formatDate } from './messages.js';
 import { WIDGET_KEY, forecastIsCurrent, formatValue } from './monitor.js';
 import { GAUGE_PAGE, NWPS_SITE, categoryRank } from './nwps.js';
@@ -183,11 +183,24 @@ function detail(monitor, code, system, language, showLink) {
   const gauge = monitor.gauges.get(code);
   const ids = gaugeIds(monitor.gladys, code);
   const components = [];
-  if (!gauge || hasStage(gauge)) {
+  // Tiles for the features the device was created with (a flow that appeared
+  // since has no feature to bind to). A flow in cfs has no Gladys unit: the
+  // label carries it.
+  const features = (monitor.gladys.devices ?? []).find(
+    (d) => d.external_id === ids.device,
+  )?.features;
+  const feature = (id) => (features ?? []).find((f) => f.external_id === id);
+  if (feature(ids.stage)) {
     components.push({ type: 'value', label: t(TEXT.stage, language), device_feature: ids.stage });
   }
-  if (gauge && hasFlow(gauge)) {
-    components.push({ type: 'value', label: t(TEXT.flow, language), device_feature: ids.flow });
+  const flow = feature(ids.flow);
+  if (flow) {
+    const label = t(TEXT.flow, language);
+    components.push({
+      type: 'value',
+      label: systemOfFeature(flow) === 'us' ? `${label} (cfs)` : label,
+      device_feature: ids.flow,
+    });
   }
   const items = [];
   if (!gauge) {

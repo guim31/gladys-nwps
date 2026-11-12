@@ -74,7 +74,9 @@ export const UNITS = {
       unit: CUBIC_METER_PER_SECOND,
       bound: 150000,
       factor: CUBIC_METRES_PER_CUBIC_FOOT,
-      digits: 1,
+      // Three decimals in the state: a creek of 1 cfs is 0.028 m³/s, not 0.
+      digits: 3,
+      displayDigits: 1,
       label: 'm³/s',
     },
   },
