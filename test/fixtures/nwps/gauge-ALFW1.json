@@ -1,0 +1,209 @@
+{
+  "lid": "ALFW1",
+  "usgsId": "",
+  "reachId": "22995169",
+  "name": "Pend Oreille River below Albeni Falls Dam",
+  "description": "PDO River blo Albeni Falls Dam",
+  "rfc": {
+    "abbreviation": "NWRFC",
+    "name": "Northwest River Forecast Center"
+  },
+  "wfo": {
+    "abbreviation": "OTX",
+    "name": "Spokane"
+  },
+  "state": {
+    "abbreviation": "ID",
+    "name": "Idaho"
+  },
+  "county": "Pend Oreille",
+  "timeZone": "PST8PDT",
+  "latitude": 48.178888888889,
+  "longitude": -116.99972222222,
+  "pedts": {
+    "observed": "QRIRR",
+    "forecast": "QRIFZ"
+  },
+  "status": {
+    "observed": {
+      "primary": 16.3,
+      "primaryUnit": "kcfs",
+      "secondary": 2034.4,
+      "secondaryUnit": "ft",
+      "floodCategory": "no_flooding",
+      "validTime": "2026-11-12T12:00:00Z"
+    },
+    "forecast": {
+      "primary": 12.25239,
+      "primaryUnit": "kcfs",
+      "secondary": 2033.3,
+      "secondaryUnit": "ft",
+      "floodCategory": "no_flooding",
+      "validTime": "2026-11-17T06:00:00Z"
+    }
+  },
+  "flood": {
+    "stageUnits": "ft",
+    "flowUnits": "cfs",
+    "categories": {
+      "major": {
+        "stage": -9999,
+        "flow": 130000
+      },
+      "moderate": {
+        "stage": -9999,
+        "flow": 115000
+      },
+      "minor": {
+        "stage": -9999,
+        "flow": 95000
+      },
+      "action": {
+        "stage": 85000,
+        "flow": 85000
+      }
+    },
+    "lro": null,
+    "crests": {
+      "historic": [
+        {
+          "occurredTime": "1894-06-01T00:00:00Z",
+          "stage": 64,
+          "flow": 200000,
+          "preliminary": "R",
+          "olddatum": false
+        },
+        {
+          "occurredTime": "1997-06-05T00:00:00Z",
+          "stage": 53.44,
+          "flow": 132000,
+          "preliminary": "O",
+          "olddatum": false
+        }
+      ],
+      "recent": [
+        {
+          "occurredTime": "2021-06-07T00:00:00Z",
+          "stage": 40.83,
+          "flow": 65900,
+          "preliminary": "O",
+          "olddatum": false
+        },
+        {
+          "occurredTime": "2020-06-04T00:00:00Z",
+          "stage": 46.8,
+          "flow": 92300,
+          "preliminary": "O",
+          "olddatum": false
+        }
+      ]
+    },
+    "lowWaters": [],
+    "impacts": [
+      {
+        "stage": 138200,
+        "statement": "Peak flow during the 1997 flood event, June 5th-7th  (calculated dam outflow). Corresponding peak at the Cusick gage in 1997 was 49.9 feet. Extensive flooding throughout the Pend Oreille River Valley from Oldtown to Box Canyon Dam. Flooding of Ione Park and boat launch. Extensive flooding of homes in low-lying areas along the River. Pow Wow Grounds at Usk inundated. Access to Sandy Shores development inundated. Boat launch at Oldtown inundated."
+      },
+      {
+        "stage": 135000,
+        "statement": "This flow corresponds approximately to 49 feet to 49.5 feet at the Cusick gage, based on 1997 records. "
+      }
+    ]
+  },
+  "images": {
+    "probability": {
+      "weekint": {
+        "stage": "",
+        "flow": "",
+        "volume": ""
+      },
+      "entperiod": {
+        "stage": "",
+        "flow": "",
+        "volume": ""
+      },
+      "shortrange": "https://water.noaa.gov/resources/probabilistic/short_term/ALFW1.shortrange.hefs.png"
+    },
+    "hydrograph": {
+      "default": "https://water.noaa.gov/resources/hydrographs/alfw1_hg.png",
+      "floodcat": "https://water.noaa.gov/resources/hydrographs/alfw1_record.png"
+    },
+    "photos": [
+      {
+        "id": "6054947182912016879",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [48.178888888889, -116.99972222222]
+        },
+        "properties": {
+          "image": "https://water.noaa.gov/resources/photos/alfw1/6054947182912016879.png",
+          "caption": "View from downstream of gauge and dam"
+        }
+      },
+      {
+        "id": "6313949073958834671",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [48.178888888889, -116.99972222222]
+        },
+        "properties": {
+          "image": "https://water.noaa.gov/resources/photos/alfw1/6313949073958834671.png",
+          "caption": "View from upstream of gauge and dam"
+        }
+      }
+    ]
+  },
+  "dataAttribution": [
+    {
+      "abbrev": "US Army Corp of Engineers",
+      "text": "USACE",
+      "title": "US Army Corp of Engineers",
+      "url": "https://www.nws.usace.army.mil/"
+    },
+    {
+      "abbrev": "US Armer Corp of Engineers Observations",
+      "text": "ALF",
+      "title": "Observations courtesy of U.S. Army Corps of Engineers",
+      "url": "https://www.nwd-wc.usace.army.mil/dd/common/projects/www/alf.html"
+    }
+  ],
+  "impactsLowWaters": [],
+  "normalThreshold": null,
+  "hydronotes": [],
+  "datums": {
+    "vertical": {
+      "value": []
+    },
+    "horizontal": {
+      "value": []
+    },
+    "notes": {
+      "value": []
+    }
+  },
+  "inundation": {
+    "enabled": false,
+    "url": "",
+    "zeroDatum": null,
+    "downloads": null,
+    "siteSpecificInfo": "",
+    "dataAttribution": []
+  },
+  "upstreamLid": "HOPI1",
+  "downstreamLid": "POCW1",
+  "inService": {
+    "enabled": true,
+    "message": ""
+  },
+  "lowThreshold": {
+    "units": "kcfs",
+    "value": 0
+  },
+  "forecastReliability": "Forecasts are issued routinely year-round.",
+  "TruncateObs": "-1",
+  "TruncateFcst": "7",
+  "ObservedFloodCategory": "no_flooding",
+  "ForecastFloodCategory": "no_flooding"
+}

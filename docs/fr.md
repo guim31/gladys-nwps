@@ -1,67 +1,176 @@
-# Template de démonstration
+# NWPS River Floods
 
-Ceci est la documentation utilisateur de l'intégration. Gladys ré-héberge ce
-fichier et affiche un lien **Documentation** permanent vers lui dans l'écran
-de configuration (dans la langue de l'utilisateur, avec l'anglais en repli) —
-c'est au moment de configurer que l'utilisateur en a le plus besoin. Gardez
-les courtes indications d'accueil dans les blocs `section` du `config_schema`
-du manifest ; mettez ici le pas-à-pas détaillé (captures d'écran, dépannage…).
+Amène dans Gladys la **hauteur des rivières des États-Unis**, leur **catégorie de crue** et la
+**prévision officielle du pic** du National Weather Service de la NOAA, depuis l'API publique du
+National Water Prediction Service (NWPS, successeur d'AHPS). Sans compte, sans clé.
+
+> **C'est un complément, pas un système d'alerte de sécurité.** Les données peuvent être en retard,
+> manquantes ou fausses, et l'intégration dépend de votre Gladys, de votre accès à Internet et d'un
+> service public. En cas de crue, suivez les alertes officielles (weather.gov, la sécurité civile
+> locale, le 911). Cette intégration n'est pas affiliée à la NOAA ni au National Weather Service.
+> Testée contre l'API NWPS réelle, pas encore sur une vraie installation de Gladys : vos retours
+> sont les bienvenus.
 
 ## Ce que vous obtenez
 
-Six appareils de démonstration apparaissent après l'installation : une
-station météo (vraies données Open-Meteo), un interrupteur, une lampe
-variable, une prise connectée avec mesure de puissance, un détecteur de
-mouvement et une caméra.
+- **Un appareil par station** suivie : la hauteur d'eau en pieds ou en mètres, le débit quand la
+  station en mesure un, la **catégorie de crue** du NWS (pas de crue, seuil d'action, crue
+  mineure, modérée, majeure) en niveau de risque et en toutes lettres, et l'heure de la dernière
+  mesure.
+- Aux stations que le NWS prévoit (points de prévision), le **pic prévu** : la hauteur la plus
+  haute de la prévision en cours, son heure et sa catégorie de crue.
+- Ce que les stations USGS déjà présentes dans le store ne donnent pas : les seuils de crue du NWS
+  et ses prévisions. Les mesures viennent souvent de l'USGS : le NWPS les relaie.
+- Un **déclencheur de scène** « La catégorie de crue monte », pour une hausse observée ou prévue.
+- Un **widget** de tableau de bord : vos stations avec leur hauteur et leur catégorie, ou une
+  station avec son pic prévu.
+- Un bouton **« Chercher des stations »** qui liste les stations autour de votre maison.
+
+## Prérequis
+
+- Gladys Assistant **5.3.2** ou plus récent (l'unité m³/s du débit en unités métriques).
+- Un accès à Internet depuis Gladys : l'intégration lit `api.water.noaa.gov`.
+- Pour « Autour de ma maison » et « Chercher des stations » : la position de votre maison dans
+  Gladys (Paramètres, Maisons). Avec plusieurs maisons, choisissez la vôtre dans le réglage
+  **Maison**. L'intégration la demande à l'installation (permission « position ») ; elle ne sert
+  qu'à trouver les stations proches, arrondie à 5 km environ avant de quitter Gladys, jamais
+  enregistrée ni journalisée.
+- Les États-Unis (et les quelques stations du NWS à Porto Rico et aux frontières).
 
 ## Configuration
 
-1. Ouvrez l'onglet **Configuration** de l'intégration.
-2. Renseignez la **latitude** et la **longitude** que la station météo de
-   démonstration doit observer (Paris par défaut), et choisissez votre unité
-   de température. L'**intervalle de rafraîchissement** règle la fréquence
-   de lecture de la station météo et de la puissance de la prise : toutes
-   les 5 minutes par défaut, toutes les minutes au plus.
-3. Enregistrez : les appareils apparaissent dans l'onglet **Découverte**,
-   prêts à être ajoutés.
+### Réglages
 
-Le réglage **Préférer la connexion locale** pilote la prise de
-démonstration : elle affiche en badge le canal réellement utilisé (local ou
-cloud), avec un point orange quand elle fonctionne en mode dégradé (local
-refusé, bascule cloud).
+| Réglage                            | Effet                                                                                                                                                     |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Codes des stations                 | Codes NWS (quatre lettres et un chiffre) séparés par des virgules, `BRKM2, ARCF1`, ou les adresses de leurs pages, `https://water.noaa.gov/gauges/brkm2`. |
+| Maison                             | La maison dont la position sert à « Autour de ma maison » et à « Chercher des stations ». Vide : la première maison de Gladys qui a une position.         |
+| Autour de ma maison                | Suit aussi les 3 stations en service les plus proches, à 5, 10 ou 25 miles de votre maison. Désactivé par défaut.                                         |
+| Unités                             | **Pieds, cfs** (par défaut, les unités du NWS) ou **mètres, m³/s**, pour les nouveaux appareils.                                                          |
+| Fréquence de mise à jour           | 15 (par défaut), 20 ou 30 minutes.                                                                                                                        |
+| Langue des noms de fonctionnalités | Noms des fonctionnalités des nouveaux appareils, langue de leurs textes et des variables de scène. Français par défaut.                                   |
 
-## Actions
+Au plus 20 stations sont suivies. Enregistrez, puis ouvrez l'onglet **Découverte** et créez les
+appareils voulus. Une station dont vous avez créé l'appareil reste suivie même si vous retirez son
+code des réglages : supprimez l'appareil pour l'arrêter.
 
-- **Tester le fournisseur météo** — effectue une requête en direct vers
-  Open-Meteo et affiche la température et l'humidité actuelles sous le
-  bouton.
-- **Identifier un appareil** — choisissez un de vos appareils dans la liste
-  et il se signale (la lampe de démonstration « clignote » dans les logs).
+Changer d'unités ne change pas les appareils déjà créés : leurs fonctionnalités gardent l'unité de
+leur création, et les valeurs la suivent. Cliquez sur **Mettre à jour** sur un appareil dans
+l'onglet Découverte pour le basculer (son historique mêle alors les deux unités).
 
-## Scènes
+### Trouver vos stations
 
-L'intégration ajoute ses propres cartes à l'éditeur de scènes (Gladys 5.1
-ou plus récent), dans la catégorie **Intégrations** :
+Le bouton **Chercher des stations** liste les stations en service autour de la maison choisie
+dans les réglages (25 miles, ou la distance choisie), la plus proche d'abord, avec leur code, leur
+distance, leur catégorie actuelle et « prévision » quand le NWS les prévoit. Copiez les codes
+voulus dans **Codes des stations**, puis enregistrez. Le code d'une station figure aussi sur sa
+page de water.noaa.gov.
 
-- **Mouvement détecté** (déclencheur) — lance la scène quand un détecteur
-  de démonstration voit bouger quelque chose. Choisissez éventuellement le
-  détecteur et ce qui a bougé (personne, animal) ; laissés vides, toute
-  détection correspond. Les actions suivantes peuvent lire ce qui a bougé
-  avec `{{triggerEvent.data.target}}`.
-- **Identifier un appareil** (action) — fait se signaler l'appareil choisi.
-  Elle indique si l'appareil a pu se signaler, pour que les actions
-  suivantes puissent en dépendre.
+## Appareils
 
-## Tableau de bord
+Un appareil par station, nommé comme le NWS la nomme (« Potomac River near Washington DC (Little
+Falls) »), avec le code en `NWS_LID` et l'État en `STATE` dans ses paramètres. Ses fonctionnalités
+sont en lecture seule :
 
-Ajoutez le widget **État de la démo** à un tableau de bord : il affiche en
-direct la température de la station météo et la puissance de la prise du
-bureau, la connexion utilisée par la prise (en orange si dégradée) et la
-position observée. Son bouton **Identifier la lampe** fait se signaler la
-lampe de démonstration.
+| Fonctionnalité           | Type (Gladys)                  | Valeur                                                                                                                           |
+| ------------------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| Hauteur d'eau            | Profondeur de liquide          | Hauteur à la station, en pieds ou en mètres, au-dessus du zéro de l'échelle (une altitude à certains lacs et barrages).          |
+| Débit (cfs) / Débit      | Débit d'eau                    | Quand la station en mesure un : en pieds cubes par seconde (unité absente de Gladys : le nom la dit) ou en m³/s.                 |
+| Niveau de crue           | Risque                         | Quand la station a des seuils de crue : 0 pas de crue (seuil d'action compris), 1 mineure, 2 modérée, 3 majeure.                 |
+| Catégorie de crue        | Texte                          | La catégorie en toutes lettres : Pas de crue, Seuil d'action, Crue mineure… ou pourquoi il n'y en a pas.                         |
+| Dernière mesure          | Texte                          | Heure de la dernière mesure, dans le fuseau de Gladys.                                                                           |
+| Pic de hauteur prévu     | Profondeur de liquide ou débit | Points de prévision seulement : la valeur la plus haute de la prévision en cours (un débit aux rares stations prévues en débit). |
+| Heure du pic prévu       | Texte                          | Son heure, ou « Aucune prévision en cours ».                                                                                     |
+| Niveau de crue prévu     | Risque                         | Le niveau de crue du pic, 0 quand il n'y a pas de prévision en cours.                                                            |
+| Catégorie de crue prévue | Texte                          | La catégorie du pic en toutes lettres.                                                                                           |
+
+Une mesure de plus de 24 heures n'est pas renvoyée : la hauteur affiche alors « pas de valeur
+récente » dans Gladys, et la catégorie « Pas de mesure récente ».
+
+### Catégories de crue
+
+Le NWS définit, pour chaque point de prévision et beaucoup d'autres stations, un **seuil
+d'action** (le moment de se préparer, pas encore de débordement) et les seuils de **crue
+mineure**, **modérée** et **majeure**, d'après les dégâts des crues passées. L'intégration publie
+la catégorie calculée par le NWS : elle ne compare pas les hauteurs elle-même. Une station sans
+seuils de crue (« Pas de seuils de crue ») n'a pas de fonctionnalité de niveau de crue. Beaucoup
+de points de prévision ne sont prévus qu'en hautes eaux : entre deux épisodes, leur prévision
+indique « Aucune prévision en cours ».
+
+## Widget du tableau de bord
+
+Ajoutez le widget **Stations de rivière** à un tableau de bord :
+
+- sans station choisie : une ligne par station avec sa hauteur et sa catégorie, en vert (pas de
+  crue), jaune (seuil d'action, crue mineure) ou rouge (modérée, majeure), et un titre quand une
+  station est en crue ou prévue en crue ;
+- avec une station choisie : ses tuiles de hauteur et de débit, sa catégorie, le pic prévu avec
+  son heure et sa catégorie, son seuil de crue et sa dernière mesure.
+
+Les hauteurs des lignes suivent les unités de votre profil Gladys ; les tuiles affichent l'unité
+des fonctionnalités. Le bouton **water.noaa.gov** ouvre la page de la station ; un réglage le
+masque.
+
+## Déclencheurs de scène
+
+**La catégorie de crue monte** se déclenche quand la catégorie d'une station créée monte au seuil
+d'action, en crue mineure, modérée ou majeure, observée ou prévue. Filtres : la station, observée
+ou prévue, la nouvelle catégorie. Variables pour vos messages : `gauge_name`, `category_name`,
+`source_name` (observée ou prévue), `value` (la hauteur avec son unité) et `time` (de la mesure ou
+du pic), dans la langue de la configuration.
+
+Il se déclenche une fois par hausse : de nouveau seulement après une baisse. Les dernières
+catégories sont gardées dans `/data` : une hausse pendant un redémarrage se déclenche une fois, et
+la première mesure d'une nouvelle station ne déclenche rien.
+
+Pour un seuil à vous, utilisez le déclencheur natif de Gladys sur une valeur d'appareil :
+« Niveau de crue supérieur ou égal à 1 » (crue mineure), ou « Pic de hauteur prévu au-dessus de
+9 ft ».
+
+## Exemples de scènes
+
+- _Crue prévue_ : déclencheur « La catégorie de crue monte », prévue, mineure, modérée ou majeure
+  → envoyer le message « {{gauge_name}} : {{category_name}} prévue, pic {{value}} à {{time}} ».
+- _Crue mineure observée_ : déclencheur sur la valeur d'appareil « Niveau de crue ≥ 1 » → prévenir
+  et allumer une lampe d'alerte.
+- _Retour à la normale_ : déclencheur sur la valeur d'appareil « Niveau de crue = 0 » → envoyer
+  « La rivière est repassée sous le seuil de crue ».
+
+## Source des données, quotas et licence
+
+- Source : le **National Water Prediction Service** du National Weather Service de la NOAA,
+  `https://api.water.noaa.gov/nwps/v1/` (`/gauges/{lid}` pour chaque station, `/gauges?bbox…` pour
+  les stations autour de la maison). Données du gouvernement américain, domaine public ; crédit :
+  NOAA / NWS.
+- Sans compte, sans clé, sans quota publié. L'intégration interroge chaque station suivie une fois
+  par mise à jour (toutes les 15 minutes par défaut, 20 stations au plus), l'une après l'autre,
+  avec un User-Agent qui la nomme, et cherche les stations autour de la maison une fois par jour.
+- Les mesures de beaucoup de stations viennent de l'USGS et d'autres partenaires, relayées par le
+  NWPS.
 
 ## Dépannage
 
-L'intégration journalise tout ce qu'elle fait : consultez les logs de
-l'intégration depuis l'interface Gladys (ou `docker logs` sur l'hôte) avec
-`LOG_LEVEL=debug` pour le détail complet.
+- **« Codes de station inconnus »** : un code des réglages n'est pas une station du NWS.
+  Vérifiez-le sur water.noaa.gov, ou utilisez **Chercher des stations**. Un numéro de site USGS
+  (8 chiffres) n'est pas un code NWS.
+- **« L'API NWPS ne répond pas »** : Gladys n'atteint pas `api.water.noaa.gov`, ou le service est
+  en panne. L'intégration réessaie à chaque mise à jour, et l'état revient tout seul.
+- **« Aucune maison de Gladys n'a de position »** : réglez la position de votre maison dans
+  Paramètres, Maisons, ou désactivez « Autour de ma maison ».
+- **Pas de pic prévu** : la station n'est pas un point de prévision, ou le NWS n'a pas de
+  prévision en cours pour elle (courant hors des hautes eaux).
+- **Valeurs anciennes** : la dernière mesure s'affiche dans « Dernière mesure ». Une station qui
+  ne mesure plus indique « Pas de mesure récente ».
+- Journaux : Intégrations → NWPS River Floods → journaux ; `LOG_LEVEL=debug` montre chaque mise à
+  jour.
+
+## Limites
+
+- Un complément, pas un système d'alerte de sécurité : les alertes du NWS et vos autorités locales
+  priment.
+- Le NWPS donne le pic de la prévision, pas toute la courbe prévue ni son incertitude.
+- Les catégories de crue n'existent que là où le NWS a défini des seuils.
+- Le débit en cfs n'a pas d'unité dans Gladys (le nom dit « cfs ») ; en unités métriques, il est
+  en m³/s.
+- Développée et testée contre l'API NWPS réelle, sans installation réelle de Gladys : vos retours
+  sont les bienvenus.

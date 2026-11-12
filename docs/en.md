@@ -1,61 +1,163 @@
-# Demo Devices Template
+# NWPS River Floods
 
-This is the user documentation of the integration. Gladys re-hosts this file
-and shows a permanent **Documentation** link to it in the Configuration screen
-(in the user's language, with English as the fallback) — it is when
-configuring that the user needs it most. Keep the short onboarding hints in
-the `section` blocks of the manifest `config_schema`; put the long
-step-by-step (screenshots, troubleshooting…) here.
+Brings the **river levels of the United States**, their **flood category** and the **official crest
+forecast** of the NOAA National Weather Service into Gladys, from the public API of the National
+Water Prediction Service (NWPS, the successor of AHPS). No account, no key.
+
+> **This is a complement, not a safety alert system.** Data can be late, missing or wrong, and the
+> integration depends on your Gladys, your Internet access and a public service. In a flood, follow
+> the official warnings (weather.gov, your local emergency management, 911). This integration is
+> not affiliated with NOAA or the National Weather Service. Tested against the live NWPS API, not
+> yet on a real Gladys installation: feedback welcome.
 
 ## What you get
 
-Six demo devices show up after installation: a weather station (real data
-from Open-Meteo), a switch, a dimmable light, a smart plug with power
-metering, a motion sensor and a camera.
+- **One device per gauge** you follow: the water level (stage) in feet or metres, the flow when
+  the gauge reports one, the **flood category** of the NWS (no flooding, action stage, minor,
+  moderate, major flooding) as a risk level and in words, and the time of the last reading.
+- At the gauges the NWS forecasts (forecast points), the **forecast crest**: the highest level of
+  the current official forecast, its time and its flood category.
+- What the USGS gauges already in the store do not give: the flood stages of the NWS and its
+  forecasts. Readings themselves often come from the USGS: the NWPS relays them.
+- A **scene trigger** "River flood category rises", for an observed or a forecast rise.
+- A **dashboard widget**: your gauges with their level and category, or one gauge with its
+  forecast crest.
+- A **"Find gauges"** button that lists the gauges around your house.
+
+## Requirements
+
+- Gladys Assistant **5.3.2** or later (the m³/s unit of the flow in metric units).
+- Internet access from Gladys: the integration reads `api.water.noaa.gov`.
+- For "around my house" and "Find gauges": the location of your house in Gladys (Settings,
+  Houses). With several houses, choose yours in the **House** setting. The integration asks for it
+  at installation (the "location" permission); it is only used to find the nearest gauges, rounded
+  to about 5 km before it leaves Gladys, never stored nor logged.
+- The United States (and the few gauges of the NWS in Puerto Rico and on the borders).
 
 ## Configuration
 
-1. Open the **Configuration** tab of the integration.
-2. Set the **latitude** and **longitude** the demo weather station should
-   observe (they default to Paris), and pick your temperature unit.
-   The **refresh interval** sets how often the weather station and the
-   plug's power are read: every 5 minutes by default, every minute at most.
-3. Save: the devices appear in the **Discovery** tab, ready to be added.
+### Settings
 
-The **Prefer the local connection** toggle drives the demo plug: it reports
-the channel it actually uses as a badge (local or cloud), with an orange dot
-when it runs degraded (local refused, cloud fallback).
+| Setting                       | What it does                                                                                                                                      |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Gauge codes                   | NWS codes (four letters and a digit) separated by commas, `BRKM2, ARCF1`, or the addresses of their pages, `https://water.noaa.gov/gauges/brkm2`. |
+| House                         | The house whose location is used by "Around my house" and "Find gauges". Empty: the first house of Gladys that has a location.                    |
+| Around my house               | Also follows the 3 nearest gauges in service and reporting, within 5, 10 or 25 miles of your house. Off by default.                               |
+| Units                         | **Feet, cfs** (default, the units of the NWS) or **metres, m³/s**, for the new devices.                                                           |
+| Refresh interval              | 15 (default), 20 or 30 minutes.                                                                                                                   |
+| Language of the feature names | Names of the features of new devices, and language of their texts and of the scene variables. French by default.                                  |
 
-## Actions
+At most 20 gauges are followed. Save, then open the **Discover** tab and create the devices you
+want. A gauge whose device you created stays followed even if you remove its code from the
+settings: delete the device to stop.
 
-- **Test the weather provider** — performs a live request to Open-Meteo and
-  shows the current temperature and humidity under the button.
-- **Identify a device** — pick one of your devices in the list and it will
-  signal itself (the demo light "blinks" in the logs).
+Changing the units does not change the devices already created: their features keep the unit
+they were created with, and the values follow it. Click **Update** on a device in the Discover
+tab to switch it (its history then mixes both units).
 
-## Scenes
+### Finding your gauges
 
-The integration adds its own cards to the scene editor (Gladys 5.1 or
-later), under the **Integrations** category:
+The **Find gauges** button lists the gauges in service around the house chosen in the settings
+(25 miles, or the chosen distance), nearest first, with their code, distance, current category
+and "forecast" when the NWS forecasts them. Copy the codes you want into **Gauge codes**, then
+save. The code of a gauge is also shown on its page of water.noaa.gov.
 
-- **Motion detected** (trigger) — starts the scene when a demo motion sensor
-  sees something move. Optionally pick the sensor and what moved (person,
-  animal); left empty, any detection matches. The following actions can
-  read what moved with `{{triggerEvent.data.target}}`.
-- **Identify a device** (action) — makes the chosen device signal itself.
-  It returns whether the device could signal itself, so the following
-  actions can depend on it.
+## Devices
 
-## Dashboard
+One device per gauge, named like the NWS names it ("Potomac River near Washington DC (Little
+Falls)"), with the code as `NWS_LID` and the state as `STATE` in its parameters. Its features
+are read-only:
 
-Add the **Demo status** widget to a dashboard: it shows the live
-temperature of the weather station and the power of the office plug, the
-connection the plug currently uses (orange when degraded) and the observed
-location. Its **Identify the light** button makes the demo light signal
-itself.
+| Feature                    | Type (Gladys)        | Value                                                                                                          |
+| -------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Water level                | Liquid depth         | Stage at the gauge, in feet or metres, above the gauge datum (an elevation at some lakes and dams).            |
+| Flow (cfs) / Flow          | Water flow           | When the gauge reports one: in cubic feet per second (a unit Gladys does not have: the name says it) or m³/s.  |
+| Flood level                | Risk                 | When the gauge has flood stages: 0 no flooding (action stage included), 1 minor, 2 moderate, 3 major flooding. |
+| Flood category             | Text                 | The category in words: No flooding, Action stage, Minor flooding… or why there is none (No recent reading…).   |
+| Last reading               | Text                 | Time of the last reading, in the time zone of Gladys.                                                          |
+| Forecast crest             | Liquid depth or flow | Forecast points only: the highest level of the current forecast (a flow at the few gauges forecast by flow).   |
+| Time of the forecast crest | Text                 | Its time, or "No current forecast".                                                                            |
+| Forecast flood level       | Risk                 | The flood level of the crest, 0 when there is no current forecast.                                             |
+| Forecast flood category    | Text                 | The category of the crest in words.                                                                            |
+
+A reading older than 24 hours is not sent again: the level then shows "no recent value" in
+Gladys, and the category "No recent reading".
+
+### Flood categories
+
+The NWS defines, for each forecast point and many other gauges, an **action stage** (time to
+prepare, no flooding yet) and the stages of **minor**, **moderate** and **major flooding**, from
+the impacts seen in past floods. The integration publishes the category the NWS computes: it
+does not compare the levels itself. A gauge without flood stages ("No flood stages") has no
+flood level feature. Many forecast points are only forecast during high water: between two
+events, their forecast reads "No current forecast".
+
+## Dashboard widget
+
+Add the **River gauges** widget to a dashboard:
+
+- without a gauge chosen: one line per gauge with its level and category, green (no flooding),
+  yellow (action stage, minor) or red (moderate, major), and a heading when a gauge is in flood
+  or forecast in flood;
+- with a gauge chosen: its level and flow tiles, its category, the forecast crest with its time
+  and category, its flood stage and its last reading.
+
+The levels of the lines follow the units of your Gladys profile; the tiles show the unit of the
+features. The **water.noaa.gov** button opens the page of the gauge; a setting hides it.
+
+## Scene triggers
+
+**River flood category rises** fires when the category of a created gauge goes up to action
+stage, minor, moderate or major flooding, observed or forecast. Filters: the gauge, observed or
+forecast, the new category. Variables for your messages: `gauge_name`, `category_name`,
+`source_name` (observed or forecast), `value` (the level with its unit) and `time` (of the
+reading or of the crest), in the language of the configuration.
+
+It fires once per rise: again only after the category went down. The last categories are kept
+in `/data`, so a rise during a restart fires once, and the first reading of a new gauge fires
+nothing.
+
+For a threshold of your own, use the native trigger of Gladys on a device value: "Flood level
+greater than or equal to 1" (minor flooding), or "Forecast crest above 9 ft".
+
+## Scene examples
+
+- _Flood forecast_: trigger "River flood category rises", forecast, minor, moderate or major →
+  send the message "{{gauge_name}}: {{category_name}} forecast, crest {{value}} at {{time}}".
+- _Minor flooding observed_: trigger on the device value "Flood level ≥ 1" → notify and switch
+  on a warning light.
+- _Back to normal_: trigger on the device value "Flood level = 0" → send "The river is back
+  below flood stage".
+
+## Data source, quotas and licence
+
+- Source: the **National Water Prediction Service** of the NOAA National Weather Service,
+  `https://api.water.noaa.gov/nwps/v1/` (`/gauges/{lid}` for each gauge, `/gauges?bbox…` for the
+  gauges around the house). Data of the U.S. government, public domain; credit: NOAA / NWS.
+- No account, no key, no published quota. The integration asks for each followed gauge once per
+  refresh (every 15 minutes by default, 20 gauges at most), one after the other, with a
+  User-Agent naming the integration, and looks for the gauges around the house once a day.
+- Readings of many gauges come from the USGS and other partners, relayed by the NWPS.
 
 ## Troubleshooting
 
-The integration logs everything it does: check the integration logs from the
-Gladys UI (or `docker logs` on the host) with `LOG_LEVEL=debug` for the full
-detail.
+- **"Unknown gauge codes"**: a code of the settings is not an NWS gauge. Check it on
+  water.noaa.gov, or use **Find gauges**. A USGS site number (8 digits) is not an NWS code.
+- **"The NWPS API does not answer"**: Gladys cannot reach `api.water.noaa.gov`, or the service is
+  down. The integration tries again at every refresh, and the status comes back by itself.
+- **"No house of Gladys has a location"**: set the location of your house in Settings, Houses,
+  or turn "Around my house" off.
+- **No forecast crest**: the gauge is not a forecast point, or the NWS has no current forecast
+  for it (common outside high water).
+- **Old values**: the last reading is shown in "Last reading". A gauge that stopped reporting
+  reads "No recent reading".
+- Logs: Integrations → NWPS River Floods → logs; `LOG_LEVEL=debug` shows every refresh.
+
+## Limits
+
+- A complement, not a safety alert system: the NWS warnings and your local authorities prevail.
+- The NWPS gives the crest of the forecast, not the whole forecast curve nor its uncertainty.
+- Flood categories exist only where the NWS defined flood stages.
+- The flow in cfs has no unit in Gladys (the name says "cfs"); in metric units it is in m³/s.
+- Developed and tested against the live NWPS API, without a real Gladys installation: feedback
+  welcome.

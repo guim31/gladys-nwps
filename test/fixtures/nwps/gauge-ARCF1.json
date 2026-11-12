@@ -1,0 +1,199 @@
+{
+  "lid": "ARCF1",
+  "usgsId": "02296750",
+  "reachId": "16807219",
+  "name": "Peace River at SR 70 Arcadia",
+  "description": "",
+  "rfc": {
+    "abbreviation": "SERFC",
+    "name": "Southeast River Forecast Center"
+  },
+  "wfo": {
+    "abbreviation": "TBW",
+    "name": "Ruskin"
+  },
+  "state": {
+    "abbreviation": "FL",
+    "name": "Florida"
+  },
+  "county": "DeSoto",
+  "timeZone": "EST5EDT",
+  "latitude": 27.221944444444,
+  "longitude": -81.876111111111,
+  "pedts": {
+    "observed": "HGIRG",
+    "forecast": "HGIFF"
+  },
+  "status": {
+    "observed": {
+      "primary": 11.97,
+      "primaryUnit": "ft",
+      "secondary": 4.66,
+      "secondaryUnit": "kcfs",
+      "floodCategory": "minor",
+      "validTime": "2026-11-12T12:30:00Z"
+    },
+    "forecast": {
+      "primary": 11.9,
+      "primaryUnit": "ft",
+      "secondary": 4.61,
+      "secondaryUnit": "kcfs",
+      "floodCategory": "minor",
+      "validTime": "2026-11-12T18:00:00Z"
+    }
+  },
+  "flood": {
+    "stageUnits": "ft",
+    "flowUnits": "cfs",
+    "categories": {
+      "major": {
+        "stage": 16,
+        "flow": -9999
+      },
+      "moderate": {
+        "stage": 14,
+        "flow": -9999
+      },
+      "minor": {
+        "stage": 11,
+        "flow": -9999
+      },
+      "action": {
+        "stage": 9,
+        "flow": -9999
+      }
+    },
+    "lro": {
+      "minorCS": "0.0614",
+      "moderateCS": "< 0.05",
+      "majorCS": "< 0.05",
+      "producedTime": "2026-11-01T20:31:50Z",
+      "interval": "NDJ"
+    },
+    "crests": {
+      "historic": [
+        {
+          "occurredTime": "2022-10-01T07:00:00Z",
+          "stage": 23.7,
+          "flow": 50800,
+          "preliminary": "R",
+          "olddatum": false
+        },
+        {
+          "occurredTime": "1912-01-01T00:00:00Z",
+          "stage": 20.55,
+          "flow": 43000,
+          "preliminary": "O",
+          "olddatum": false
+        }
+      ],
+      "recent": [
+        {
+          "occurredTime": "2024-10-14T22:00:00Z",
+          "stage": 14.5,
+          "flow": 7572,
+          "preliminary": "O",
+          "olddatum": false
+        },
+        {
+          "occurredTime": "2022-10-01T07:00:00Z",
+          "stage": 23.7,
+          "flow": 50800,
+          "preliminary": "R",
+          "olddatum": false
+        }
+      ]
+    },
+    "lowWaters": [],
+    "impacts": [
+      {
+        "stage": 21,
+        "statement": "SR-70 floods west of the Peace River bridge to CR-661. SR-70 is also flooded east of the bridge to Parker Ave."
+      },
+      {
+        "stage": 16,
+        "statement": "Up to 60 homes at River Acres are flooded. The Woman's Club and American Legion are impacted."
+      }
+    ]
+  },
+  "images": {
+    "probability": {
+      "weekint": {
+        "stage": "https://water.noaa.gov/resources/probabilistic/exceedance/ARCF1.SSTG.prob.weekint.gif",
+        "flow": "https://water.noaa.gov/resources/probabilistic/exceedance/ARCF1.QINE.prob.weekint.gif",
+        "volume": "https://water.noaa.gov/resources/probabilistic/exceedance/ARCF1.volume.prob.weekint.gif"
+      },
+      "entperiod": {
+        "stage": "https://water.noaa.gov/resources/probabilistic/exceedance/ARCF1.SSTG.exceed.90day.gif",
+        "flow": "https://water.noaa.gov/resources/probabilistic/exceedance/ARCF1.QINE.exceed.90day.gif",
+        "volume": "https://water.noaa.gov/resources/probabilistic/exceedance/ARCF1.volume.exceed.90day.gif"
+      },
+      "shortrange": "https://water.noaa.gov/resources/probabilistic/short_term/ARCF1.shortrange.hefs.png"
+    },
+    "hydrograph": {
+      "default": "https://water.noaa.gov/resources/hydrographs/arcf1_hg.png",
+      "floodcat": "https://water.noaa.gov/resources/hydrographs/arcf1_record.png"
+    },
+    "photos": []
+  },
+  "dataAttribution": [
+    {
+      "abbrev": "US Geological Survey",
+      "text": "USGS--Water Resources of the United States",
+      "title": "US Geological Survey",
+      "url": "https://waterdata.usgs.gov/nwis"
+    },
+    {
+      "abbrev": "USGS",
+      "text": "02296750",
+      "title": "Observations courtesy of U.S. Geological Survey",
+      "url": "https://waterdata.usgs.gov/nwis/inventory/?site_no=02296750"
+    }
+  ],
+  "impactsLowWaters": [],
+  "normalThreshold": {
+    "value": 0,
+    "units": "ft"
+  },
+  "hydronotes": [
+    {
+      "statement": "River forecasts for this location take into account past precipitation and the precipitation amounts expected approximately 48 hours into the future from the forecast issuance time.",
+      "effective": "0101",
+      "expiration": "1231"
+    }
+  ],
+  "datums": {
+    "vertical": {
+      "value": []
+    },
+    "horizontal": {
+      "value": []
+    },
+    "notes": {
+      "value": []
+    }
+  },
+  "inundation": {
+    "enabled": false,
+    "url": "",
+    "zeroDatum": null,
+    "downloads": null,
+    "siteSpecificInfo": "",
+    "dataAttribution": []
+  },
+  "upstreamLid": "ZFSF1",
+  "downstreamLid": "PLPF1",
+  "inService": {
+    "enabled": true,
+    "message": ""
+  },
+  "lowThreshold": {
+    "units": "ft",
+    "value": 0
+  },
+  "forecastReliability": "Forecasts are issued as needed during times of high water, but are not routinely available.",
+  "TruncateObs": "-1",
+  "TruncateFcst": "5",
+  "ObservedFloodCategory": "minor",
+  "ForecastFloodCategory": "minor"
+}

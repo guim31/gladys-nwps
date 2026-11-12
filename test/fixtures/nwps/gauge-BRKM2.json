@@ -1,0 +1,190 @@
+{
+  "lid": "BRKM2",
+  "usgsId": "01646500",
+  "reachId": "4512772",
+  "name": "Potomac River near Washington DC (Little Falls)",
+  "description": "",
+  "rfc": {
+    "abbreviation": "MARFC",
+    "name": "Middle Atlantic River Forecast Center"
+  },
+  "wfo": {
+    "abbreviation": "LWX",
+    "name": "Sterling"
+  },
+  "state": {
+    "abbreviation": "MD",
+    "name": "Maryland"
+  },
+  "county": "Montgomery",
+  "timeZone": "EST5EDT",
+  "latitude": 38.949722222222,
+  "longitude": -77.127777777778,
+  "pedts": {
+    "observed": "HGIRG",
+    "forecast": "HGIFF"
+  },
+  "status": {
+    "observed": {
+      "primary": 2.78,
+      "primaryUnit": "ft",
+      "secondary": 1.81,
+      "secondaryUnit": "kcfs",
+      "floodCategory": "no_flooding",
+      "validTime": "2026-11-12T12:45:00Z"
+    },
+    "forecast": {
+      "primary": 2.8,
+      "primaryUnit": "ft",
+      "secondary": 1.9,
+      "secondaryUnit": "kcfs",
+      "floodCategory": "no_flooding",
+      "validTime": "2026-11-12T18:00:00Z"
+    }
+  },
+  "flood": {
+    "stageUnits": "ft",
+    "flowUnits": "cfs",
+    "categories": {
+      "major": {
+        "stage": 14,
+        "flow": -9999
+      },
+      "moderate": {
+        "stage": 12,
+        "flow": -9999
+      },
+      "minor": {
+        "stage": 10,
+        "flow": -9999
+      },
+      "action": {
+        "stage": 5,
+        "flow": 22000
+      }
+    },
+    "lro": {
+      "minorCS": "0.12",
+      "moderateCS": "0.06",
+      "majorCS": "< 0.05",
+      "producedTime": "2026-10-28T23:22:27Z",
+      "interval": "NDJ"
+    },
+    "crests": {
+      "historic": [
+        {
+          "occurredTime": "1936-03-19T16:45:00Z",
+          "stage": 28.1,
+          "flow": 484000,
+          "preliminary": "R",
+          "olddatum": true
+        },
+        {
+          "occurredTime": "1942-10-17T05:45:00Z",
+          "stage": 26.88,
+          "flow": 447000,
+          "preliminary": "O",
+          "olddatum": true
+        }
+      ],
+      "recent": [
+        {
+          "occurredTime": "2025-05-16T02:45:00Z",
+          "stage": 11.73,
+          "flow": 160200,
+          "preliminary": "P",
+          "olddatum": false
+        },
+        {
+          "occurredTime": "2022-05-09T03:45:00Z",
+          "stage": 10.16,
+          "flow": 117999,
+          "preliminary": "P",
+          "olddatum": false
+        }
+      ]
+    },
+    "lowWaters": [],
+    "impacts": [
+      {
+        "stage": 17,
+        "statement": "Water overflows the overlooks at Great Falls National Park and approaches the lower level of the visitors center. Most of the C&O Canal towpath downstream of Pennyfield is flooded. There is approximately a foot of water in the clubhouse on Sycamore Island."
+      },
+      {
+        "stage": 16,
+        "statement": "Water reaches the clubhouse on Sycamore Island."
+      }
+    ]
+  },
+  "images": {
+    "probability": {
+      "weekint": {
+        "stage": "https://water.noaa.gov/resources/probabilistic/exceedance/BRKM2.SSTG.prob.weekint.gif",
+        "flow": "https://water.noaa.gov/resources/probabilistic/exceedance/BRKM2.QINE.prob.weekint.gif",
+        "volume": "https://water.noaa.gov/resources/probabilistic/exceedance/BRKM2.volume.prob.weekint.gif"
+      },
+      "entperiod": {
+        "stage": "https://water.noaa.gov/resources/probabilistic/exceedance/BRKM2.SSTG.exceed.90day.gif",
+        "flow": "https://water.noaa.gov/resources/probabilistic/exceedance/BRKM2.QINE.exceed.90day.gif",
+        "volume": ""
+      },
+      "shortrange": "https://water.noaa.gov/resources/probabilistic/short_term/BRKM2.shortrange.hefs.png"
+    },
+    "hydrograph": {
+      "default": "https://water.noaa.gov/resources/hydrographs/brkm2_hg.png",
+      "floodcat": "https://water.noaa.gov/resources/hydrographs/brkm2_record.png"
+    },
+    "photos": []
+  },
+  "dataAttribution": [
+    {
+      "abbrev": "USGS",
+      "text": "01646500",
+      "title": "Observations courtesy of U.S. Geological Survey",
+      "url": "https://waterdata.usgs.gov/nwis/inventory/?site_no=01646500"
+    }
+  ],
+  "impactsLowWaters": [],
+  "normalThreshold": {
+    "value": 0,
+    "units": "ft"
+  },
+  "hydronotes": [
+    {
+      "statement": "Stage may be affected by ice.",
+      "effective": "1201",
+      "expiration": "0315"
+    }
+  ],
+  "datums": {
+    "vertical": {
+      "value": []
+    },
+    "horizontal": {
+      "value": []
+    },
+    "notes": {
+      "value": []
+    }
+  },
+  "inundation": {
+    "enabled": false,
+    "url": "",
+    "zeroDatum": null,
+    "downloads": null,
+    "siteSpecificInfo": "",
+    "dataAttribution": []
+  },
+  "upstreamLid": "EDFM2",
+  "downstreamLid": "GTND2",
+  "inService": {
+    "enabled": true,
+    "message": ""
+  },
+  "lowThreshold": null,
+  "forecastReliability": "Forecasts are issued routinely year-round.",
+  "TruncateObs": "-1",
+  "TruncateFcst": "-1",
+  "ObservedFloodCategory": "no_flooding",
+  "ForecastFloodCategory": "no_flooding"
+}

@@ -31,16 +31,22 @@ pushing.
 ## Architecture
 
 ```
-index.js                          SDK wiring only: handlers registered before connect()
-src/devices/index.js              registry of the device blueprints + dispatch helpers
-src/devices/<type>.js             one device type per file (buildDevice, onPoll, onSetValue...)
-src/scenes.js                     scene action handlers (manifest `scene_actions`)
-src/widgets.js                    dashboard widget handlers (manifest `widgets`)
+index.js                          SDK wiring only: src/app.js registers the handlers before connect()
+src/app.js                        handlers → monitor, the `search_gauges` action, the widget
+src/monitor.js                    followed gauges, refresh (own timer), states, scene trigger, status
+src/nwps.js                       NWPS client and parsing (ft and cfs), flood categories
+src/http.js                       GET JSON with timeout and User-Agent
+src/search.js                     "Find gauges" action
+src/devices.js                    Gladys device of a gauge (features, units, four-language names)
+src/widgets.js                    `gauges` dashboard widget
+src/messages.js                   texts sent from the container (en, fr, de, es), category names
+src/geo.js                        distances, box around the house (rounded to 0.05°)
+src/store.js                      /data/nwps.json (last categories, for the trigger)
 src/config.js                     DEFAULT_CONFIG (mirrors the manifest defaults) + normalization
-src/weather.js                    example driver (Open-Meteo)
-gladys-assistant-integration.json manifest: name, config_schema, actions, image...
-docs/en.md, docs/fr.md            user documentation, re-hosted by Gladys (mandatory)
-test/                             node --test, against the SDK's fake Gladys (integration-sdk/testing)
+gladys-assistant-integration.json manifest: name, config_schema, action, trigger, widget...
+docs/{en,fr,de,es}.md             user documentation, re-hosted by Gladys, same sections
+test/helpers/world.js             fake Gladys + fake NWPS serving the recorded answers
+test/fixtures/nwps/               recorded real answers of the NWPS (see test/fixtures/README.md)
 .github/scripts/release.mjs       release helpers (manifest bump, changelog), tested in test/
 ```
 
@@ -251,3 +257,29 @@ long, et sur un « Sie »/« Ihr… » de politesse en allemand. Le store exige 
 - Docs `en`, `fr`, `de`, `es` avec les mêmes sections.
 - Chauffe, ouverture, sécurité : ne rien rendre pilotable « comme un thermostat » ou par un assistant
   vocal quand une erreur serait dangereuse (leçon d'OctoPrint).
+
+## Propre à cette intégration (NWPS, 12/11/2026)
+
+- **API** : `https://api.water.noaa.gov/nwps/v1`, publique, sans clé, sans quota publié. Une seule
+  requête par station et par cycle : `GET /gauges/{lid}` (≈ 45 Ko, dont les crues historiques).
+  `status.observed` = dernière mesure avec la catégorie calculée par le NWS ; `status.forecast` =
+  **le maximum de la prévision restante** (valeur, heure, catégorie), vérifié le 12/11/2026 contre
+  `/gauges/{lid}/stageflow/forecast` sur quatre stations. Pas besoin de lire la série.
+- Code inconnu : **404** `{"code":5,"message":"[ZZZZ9] could not find gauge ID"}`. Tous les LID
+  (12 971 le 12/11/2026) ont la forme `AAAA9`. `HEAD` répond 501.
+- Valeurs absentes : `-999` (status), `-9999` (seuils), `validTime` `0001-01-01T00:00:00Z`.
+  Unités : `primaryUnit` `ft` et `secondaryUnit` `kcfs` le plus souvent ; ≈ 90 stations (barrages du
+  Nord-Ouest, pedts `Q…`) ont **le débit en primaire** et la hauteur en secondaire, leurs seuils sont
+  alors en débit (cfs). Tout est normalisé en ft et cfs dans `src/nwps.js`.
+- Catégories : `no_flooding`, `action`, `minor`, `moderate`, `major`, plus `low_threshold`,
+  `not_defined` (pas de seuils), `obs_not_current`, `fcst_not_current`, `out_of_service`. La
+  fonctionnalité `risk/integer` reçoit 0 (aucune ou action), 1 mineure, 2 modérée, 3 majeure (pastille
+  0-3 du front) ; le texte donne la catégorie exacte.
+- `pedts.forecast` non vide = point de prévision (≈ 8 000 stations), mais beaucoup ne sont prévus
+  qu'en hautes eaux (`fcst_not_current` le reste du temps) : niveau prévu publié à 0, pic non écrasé.
+- `GET /gauges?bbox.xmin=…&srid=EPSG_4326` : liste d'une emprise, même `status`, sans seuils.
+- Le cfs n'est pas une unité de Gladys : débit en cfs **sans unité** (le nom le dit), en m³/s avec
+  `cubic-meter-per-second` (5.3.2). Chaque valeur est publiée dans l'unité **de la fonctionnalité
+  créée** (`systemOfFeature`), pas du réglage : changer d'unité ne mélange rien avant « Mettre à jour ».
+- Déclencheur `flood_category_raised` : hausse de rang (0 à 4) observée ou prévue, à partir du seuil
+  d'action ; derniers rangs dans `/data/nwps.json`, la première lecture ne fait que poser la base.

@@ -1,8 +1,8 @@
 {
-  "name": "gladys-integration-template-js",
+  "name": "gladys-nwps",
   "version": "1.0.0",
   "private": true,
-  "description": "Official starter template to build an external integration for Gladys Assistant with the JavaScript SDK.",
+  "description": "Gladys Assistant external integration: US river levels, flood categories and crest forecasts from the NOAA National Water Prediction Service.",
   "type": "module",
   "main": "index.js",
   "scripts": {
