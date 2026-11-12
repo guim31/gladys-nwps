@@ -1,77 +1,114 @@
+// The `gauges` widget: content within the core vocabulary and budget
+// (validateWidgetContent: an empty array = rendered as sent), every bound
+// feature existing on the device, texts localized, units of the request.
+
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { validateWidgetContent } from '@gladysassistant/integration-sdk';
-import { createFakeGladys } from '@gladysassistant/integration-sdk/testing';
-import { buildDiscoveredDevices } from '../src/devices/index.js';
-import { simulateLanSession } from '../src/devices/plug.js';
-import { DEMO_STATUS_WIDGET, WIDGETS, refreshWidgets } from '../src/widgets.js';
-import { normalizeConfig } from '../src/config.js';
+import { ALFW1, APAM2, ARCF1, BRKM2, create, createWorld } from './helpers/world.js';
 
-const gladys = createFakeGladys();
-const config = normalizeConfig();
-const demoStatus = WIDGETS[DEMO_STATUS_WIDGET];
+const get = async (world, settings, language = 'en', units = 'us') => {
+  const ack = await world.fake.widgetGet('gauges', { settings, language, units });
+  assert.equal(ack.success, true);
+  return ack.data.content;
+};
 
-// What the SDK passes to onWidgetGet, plus the config index.js adds.
-const getContent = (cfg = config) =>
-  demoStatus.get(gladys, { settings: {}, language: 'en', units: 'metric', config: cfg });
-
-test('the demo_status content is rendered exactly as sent', async () => {
-  // [] = nothing the core would drop, truncate or trim to the content budget.
-  assert.deepEqual(validateWidgetContent(await getContent()), []);
-});
-
-test('the degraded plug connection content is valid too', async () => {
-  simulateLanSession(false);
-  try {
-    const content = await getContent();
+test('without any created gauge, the widget says what to do', async (t) => {
+  const world = await createWorld({ config: { gauges: BRKM2 } });
+  t.after(() => world.app.stop());
+  for (const language of ['en', 'fr', 'de', 'es']) {
+    const content = await get(world, {}, language);
     assert.deepEqual(validateWidgetContent(content), []);
-    const status = content.components.find((component) => component.type === 'status');
-    assert.ok(
-      status.items.some((item) => item.color === 'warning'),
-      'degraded shows a warning',
-    );
-  } finally {
-    simulateLanSession(true);
+    assert.equal(content.components[0].variant, 'body');
   }
 });
 
-test('the live tiles reference features the integration publishes', async () => {
-  const featureIds = new Set(
-    buildDiscoveredDevices(gladys, config).flatMap((device) =>
-      device.features.map((feature) => feature.external_id),
-    ),
+test('the overview: one line per gauge, a heading on flooding, the button can be hidden', async (t) => {
+  const world = await createWorld({ config: { gauges: `${BRKM2},${APAM2},${ARCF1}` } });
+  t.after(() => world.app.stop());
+  for (const code of [BRKM2, APAM2, ARCF1]) {
+    await create(world, code);
+  }
+  const content = await get(world, {});
+  assert.deepEqual(validateWidgetContent(content), []);
+  const [heading, status] = content.components;
+  assert.equal(heading.text, 'Flooding: Minor flooding');
+  assert.deepEqual(
+    status.items.map((item) => [item.value, item.color]),
+    [
+      ['2.78 ft · No flooding', 'success'],
+      ['2.02 ft · Action stage', 'warning'],
+      ['11.97 ft · Minor flooding', 'warning'],
+    ],
   );
-  const liveTiles = (await getContent()).components.filter((c) => c.device_feature);
-  assert.ok(liveTiles.length > 0, 'the template demonstrates a device-bound tile');
-  for (const tile of liveTiles) {
-    assert.ok(featureIds.has(tile.device_feature), `unknown feature ${tile.device_feature}`);
-  }
+  const metric = await get(world, { show_link: false }, 'fr', 'metric');
+  assert.equal(metric.components[1].items[0].value, '0,85 m · Pas de crue');
+  assert.equal(metric.components.filter((c) => c.type === 'button').length, 0);
 });
 
-test('every button action of the content is handled and answers a short toast', async () => {
-  const buttons = (await getContent()).components.filter((c) => c.type === 'button' && c.action);
-  assert.ok(buttons.length > 0, 'the template demonstrates a widget action');
-  for (const { action } of buttons) {
-    const message = await demoStatus.action(gladys, {
-      actionKey: action.key,
-      params: action.params ?? {},
-      settings: {},
-      config,
-    });
-    assert.ok(message.en, 'the toast carries at least the mandatory `en` text');
-    assert.ok(message.en.length <= 200, 'toasts are capped at 200 characters');
+test('one gauge: live tiles bound to its features, category, crest, flood stage', async (t) => {
+  const world = await createWorld({ config: { gauges: `${APAM2},${ALFW1}` } });
+  t.after(() => world.app.stop());
+  for (const code of [APAM2, ALFW1]) {
+    const device = await create(world, code);
+    for (const language of ['en', 'fr', 'de', 'es']) {
+      const content = await get(world, { gauge: device.external_id }, language);
+      assert.deepEqual(validateWidgetContent(content), [], `${code} ${language}`);
+      const ids = new Set(device.features.map((f) => f.external_id));
+      for (const tile of content.components.filter((c) => c.device_feature)) {
+        assert.ok(ids.has(tile.device_feature), `${code}: ${tile.device_feature}`);
+      }
+    }
   }
-});
-
-test('an unknown widget action fails, so the user sees the error', async () => {
-  await assert.rejects(
-    demoStatus.action(gladys, { actionKey: 'unknown', params: {}, settings: {}, config }),
-    /Unknown widget action/,
+  const apam2 = world.fake.devices.find((d) => d.external_id.endsWith(':APAM2'));
+  const content = await get(world, { gauge: apam2.external_id });
+  const items = content.components.find((c) => c.type === 'status').items;
+  assert.deepEqual(
+    items.map((item) => [item.label, item.value]),
+    [
+      ['Category', 'Action stage'],
+      ['Forecast crest', '2.7 ft · 11/12, 06:00 PM'],
+      ['Forecast category', 'Minor flooding'],
+      ['Flood stage', '2.6 ft'],
+      ['Last reading', '11/12, 07:54 AM'],
+    ],
   );
+  const link = content.components.find((c) => c.type === 'button');
+  assert.equal(link.link.url, 'https://water.noaa.gov/gauges/apam2');
 });
 
-test('refreshWidgets nudges every widget', () => {
-  const fresh = createFakeGladys();
-  refreshWidgets(fresh);
-  assert.deepEqual(fresh.fake.widgetRefreshes, Object.keys(WIDGETS));
+test('the widget shows the name given in Gladys, and a removed gauge says so', async (t) => {
+  const world = await createWorld({ config: { gauges: BRKM2 } });
+  t.after(() => world.app.stop());
+  const device = await create(world, BRKM2);
+  await world.fake.deviceUpdated({ ...device, name: 'Potomac' });
+  const content = await get(world, {});
+  assert.equal(content.components.find((c) => c.type === 'status').items[0].label, 'Potomac');
+  await world.fake.deviceDeleted({ ...device, name: 'Potomac' });
+  const gone = await get(world, { gauge: device.external_id });
+  assert.equal(gone.components[0].text, 'This gauge is no longer followed.');
+});
+
+test('the flow tile says cfs in US units, and only features of the device get a tile', async (t) => {
+  const world = await createWorld({ config: { gauges: APAM2 } });
+  t.after(() => world.app.stop());
+  const device = await create(world, APAM2);
+  // A flow reading appears after creation: no feature, so no tile.
+  world.api.set(APAM2, 'observed', { secondary: 1.2, secondaryUnit: 'kcfs' });
+  await world.monitor.refresh();
+  const content = await get(world, { gauge: device.external_id });
+  assert.deepEqual(
+    content.components.filter((c) => c.type === 'value').map((c) => c.label),
+    ['Water level'],
+  );
+  const other = await createWorld({ config: { gauges: BRKM2 } });
+  t.after(() => other.app.stop());
+  const brkm2 = await create(other, BRKM2);
+  const tiles = (await get(other, { gauge: brkm2.external_id })).components.filter(
+    (c) => c.type === 'value',
+  );
+  assert.deepEqual(
+    tiles.map((c) => c.label),
+    ['Water level', 'Flow (cfs)'],
+  );
 });

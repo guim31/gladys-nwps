@@ -1,0 +1,1084 @@
+{
+  "gauges": [
+    {
+      "lid": "ABPV2",
+      "name": "Backlick Run at Armistead Boothe Park",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.803888888889,
+      "longitude": -77.128333333333,
+      "pedts": {
+        "observed": "HGIRR",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 0.42,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T11:00:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "ACRV2",
+      "name": "Cameron Run at Alexandria",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.806388888889,
+      "longitude": -77.11,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "out_of_service",
+          "validTime": "0001-01-01T00:00:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "out_of_service",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "AFRV2",
+      "name": "Four Mile Run at Alexandria",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.843333333333,
+      "longitude": -77.085833333333,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 4.09,
+          "primaryUnit": "ft",
+          "secondary": 0.0014,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:50:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "ALEV2",
+      "name": "Four Mile Run above Highway 1 at Alexandria",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.840277777778,
+      "longitude": -77.053333333333,
+      "pedts": {
+        "observed": "HGIRZ",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 1.02,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:12:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "ANAV2",
+      "name": "Accotink Creek near Annandale",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.812777777778,
+      "longitude": -77.228611111111,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 1.57,
+          "primaryUnit": "ft",
+          "secondary": 0,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T11:45:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "AXTV2",
+      "name": "Potomac River at Alexandria",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.805277777778,
+      "longitude": -77.038333333333,
+      "pedts": {
+        "observed": "HGIRZ",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 1.67,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:18:00Z"
+        },
+        "forecast": {
+          "primary": 2.7,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "action",
+          "validTime": "2026-11-13T03:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "BLRV2",
+      "name": "Backlick Run at Van Dorn Street in Alexandria",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.803333333333,
+      "longitude": -77.133888888889,
+      "pedts": {
+        "observed": "HGIRR",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 0,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:05:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "BPAD2",
+      "name": "Anacostia River at Buzzard Point in Washington DC ",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "DC",
+        "name": "District of Columbia"
+      },
+      "latitude": 38.86527777777778,
+      "longitude": -77.01027777777777,
+      "pedts": {
+        "observed": "HGIRA",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 1.49,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "not_defined",
+          "validTime": "2026-11-12T12:35:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "BRKM2",
+      "name": "Potomac River near Washington DC (Little Falls)",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "MD",
+        "name": "Maryland"
+      },
+      "latitude": 38.949722222222,
+      "longitude": -77.127777777778,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 2.78,
+          "primaryUnit": "ft",
+          "secondary": 1.81,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:45:00Z"
+        },
+        "forecast": {
+          "primary": 2.8,
+          "primaryUnit": "ft",
+          "secondary": 1.9,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T18:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "CLAM2",
+      "name": "Northwest Branch at Kemp Mill",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "MD",
+        "name": "Maryland"
+      },
+      "latitude": 39.065555555556,
+      "longitude": -77.029444444444,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 1.46,
+          "primaryUnit": "ft",
+          "secondary": 0.003,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T11:45:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "CRPV2",
+      "name": "Cameron Run at Eisenhower Avenue in Alexandria",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.804444444444,
+      "longitude": -77.106111111111,
+      "pedts": {
+        "observed": "HGIRZ",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 3.86,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:20:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "DKNV2",
+      "name": "Holmes Run at Alexandria / Fairfax Border",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.830833333333,
+      "longitude": -77.134722222222,
+      "pedts": {
+        "observed": "HGIRR",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "obs_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "DRBV2",
+      "name": "Difficult Run at Browns Mill Road / Wolf Trap",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.952777777777776,
+      "longitude": -77.2911111111111,
+      "pedts": {
+        "observed": "HGIRR",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 193.75,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:05:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "FMHV2",
+      "name": "Four Mile Run at HWY 29",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.8863,
+      "longitude": -77.1635,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 1.96,
+          "primaryUnit": "ft",
+          "secondary": 0.0015,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:45:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "FVLV2",
+      "name": "Holmes Run at Fairview Lake",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.87,
+      "longitude": -77.212777777778,
+      "pedts": {
+        "observed": "HPIRR",
+        "forecast": "HPIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 310.09,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:40:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "GFLV2",
+      "name": "Difficult Run near Great Falls",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.975833333333,
+      "longitude": -77.246111111111,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 2.7,
+          "primaryUnit": "ft",
+          "secondary": 0.015,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:15:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "GTND2",
+      "name": "Potomac River at Georgetown / Wisconsin Ave",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "DC",
+        "name": "District of Columbia"
+      },
+      "latitude": 38.9033611,
+      "longitude": -77.0676667,
+      "pedts": {
+        "observed": "HMIRG",
+        "forecast": "HMIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 3.55,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T11:54:00Z"
+        },
+        "forecast": {
+          "primary": 5,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-13T03:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "HRVV2",
+      "name": "Holmes Run at Van Dorn Street",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.82,
+      "longitude": -77.127777777778,
+      "pedts": {
+        "observed": "HGIRR",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 0.07,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "not_defined",
+          "validTime": "2026-11-12T12:25:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "MDRV2",
+      "name": "Dead Run near McLean",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.959722222222,
+      "longitude": -77.176111111111,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 1.17,
+          "primaryUnit": "ft",
+          "secondary": 0,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:25:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "PRPV2",
+      "name": "Rocky Run near Tysons Corner (Pulte/McLean Regional Pond)",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.9375,
+      "longitude": -77.241388888889,
+      "pedts": {
+        "observed": "HPIRR",
+        "forecast": "HPIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 341.72,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "not_defined",
+          "validTime": "2026-11-12T12:35:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "RCJD2",
+      "name": "Rock Creek at Joyce Road in Washington",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "DC",
+        "name": "District of Columbia"
+      },
+      "latitude": 38.960277777778,
+      "longitude": -77.041944444444,
+      "pedts": {
+        "observed": "HGIRZ",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 1.26,
+          "primaryUnit": "ft",
+          "secondary": 0.0169,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:05:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "RCKD2",
+      "name": "Rock Creek at Sherrill Drive/DC",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "DC",
+        "name": "District of Columbia"
+      },
+      "latitude": 38.9725,
+      "longitude": -77.04,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": "HGIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "obs_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "RKVM2",
+      "name": "Turkey Branch near Aspen Hill",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "MD",
+        "name": "Maryland"
+      },
+      "latitude": 39.068333333333,
+      "longitude": -77.081666666667,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 4.32,
+          "primaryUnit": "ft",
+          "secondary": 0,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T13:00:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "TKPM2",
+      "name": "Sligo Creek near Takoma Park",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "MD",
+        "name": "Maryland"
+      },
+      "latitude": 38.986111111111,
+      "longitude": -77.005277777778,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 0.58,
+          "primaryUnit": "ft",
+          "secondary": 0.001,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T13:00:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "TRFV2",
+      "name": "Tripps Run at Falls Church, VA",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.87944444,
+      "longitude": -77.1791667,
+      "pedts": {
+        "observed": "HGIRG",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 0.79,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T13:00:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "WASD2",
+      "name": "Washington Channel at SW Waterfront (IN MLLW)",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "DC",
+        "name": "District of Columbia"
+      },
+      "latitude": 38.873333333333,
+      "longitude": -77.021111111111,
+      "pedts": {
+        "observed": "HMIRG",
+        "forecast": "HMIFF"
+      },
+      "status": {
+        "observed": {
+          "primary": 3.24,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:54:00Z"
+        },
+        "forecast": {
+          "primary": 4.1,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-13T03:00:00Z"
+        }
+      }
+    },
+    {
+      "lid": "WBAV2",
+      "name": "Accotink Creek at Woodburn Road / Strathmeade Springs",
+      "rfc": {
+        "abbreviation": "MARFC",
+        "name": "Middle Atlantic River Forecast Center"
+      },
+      "wfo": {
+        "abbreviation": "LWX",
+        "name": "Sterling"
+      },
+      "state": {
+        "abbreviation": "VA",
+        "name": "Virginia"
+      },
+      "latitude": 38.846111111111114,
+      "longitude": -77.2375,
+      "pedts": {
+        "observed": "HGIRR",
+        "forecast": ""
+      },
+      "status": {
+        "observed": {
+          "primary": 247.54,
+          "primaryUnit": "ft",
+          "secondary": -999,
+          "secondaryUnit": "kcfs",
+          "floodCategory": "no_flooding",
+          "validTime": "2026-11-12T12:05:00Z"
+        },
+        "forecast": {
+          "primary": -999,
+          "primaryUnit": "",
+          "secondary": -999,
+          "secondaryUnit": "",
+          "floodCategory": "fcst_not_current",
+          "validTime": "0001-01-01T00:00:00Z"
+        }
+      }
+    }
+  ]
+}

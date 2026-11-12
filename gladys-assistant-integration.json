@@ -1,177 +1,609 @@
 {
   "manifest_version": 1,
   "type": "device",
-  "name": "Demo Devices Template",
+  "name": "NWPS River Floods",
   "description": {
-    "en": "Starter template showing sensors, a switch, a dimmable light and a smart plug.",
-    "fr": "Template de démarrage : capteurs, interrupteur, lampe variable et prise connectée."
+    "en": "US river levels, flood categories and official crest forecasts from the NOAA Weather Service.",
+    "fr": "Hauteur des rivières américaines, catégories de crue et prévisions de pic du NWS (NOAA).",
+    "de": "Pegelstände, Hochwasserkategorien und Scheitelprognosen des NOAA-Wetterdienstes für US-Flüsse.",
+    "es": "Nivel de los ríos de EE. UU., categorías de inundación y previsiones de cresta del NWS (NOAA)."
   },
   "version": "1.0.0",
-  "docker_image": "ghcr.io/gladysassistant/integration-template-js:1.0.0",
-  "gladys_version": ">=5.1.0",
-  "cover_image": "https://raw.githubusercontent.com/GladysAssistant/integration-template-js/master/cover.png",
-  "categories": ["lighting", "security", "environment"],
-  "transports": ["local", "cloud"],
+  "docker_image": "ghcr.io/guim31/gladys-nwps:1.0.0",
+  "gladys_version": ">=5.3.2",
+  "cover_image": "https://raw.githubusercontent.com/guim31/gladys-nwps/main/cover.png",
+  "categories": ["environment"],
+  "countries": ["US"],
+  "keywords": ["NOAA", "NWS", "flood", "river", "crest", "hydrograph", "water level", "AHPS"],
+  "transports": ["cloud"],
+  "location": true,
   "config_schema": [
     {
       "key": "intro",
       "type": "section",
-      "label": { "en": "Getting started", "fr": "Pour commencer" },
+      "label": {
+        "en": "Your gauges",
+        "fr": "Vos stations",
+        "de": "Deine Pegel",
+        "es": "Sus estaciones"
+      },
       "description": {
-        "en": "The demo weather station reads real data from the free Open-Meteo API: pick the coordinates to observe. No account, no API key.",
-        "fr": "La station météo de démonstration lit de vraies données via l'API gratuite Open-Meteo : choisissez les coordonnées à observer. Pas de compte, pas de clé d'API."
+        "en": "Follow the river gauges of the National Weather Service: by code, or the nearest ones to your house. \"Find gauges\" below lists them. Save, then create the devices in the Discover tab.",
+        "fr": "Suivez les stations de rivière du National Weather Service : par code, ou les plus proches de votre maison. « Chercher des stations » ci-dessous les liste. Enregistrez, puis créez les appareils dans l'onglet Découverte.",
+        "de": "Verfolge die Flusspegel des National Weather Service: per Code oder die nächsten zu deinem Haus. „Pegel suchen“ unten listet sie auf. Speichere und lege dann die Geräte im Tab „Entdecken“ an.",
+        "es": "Siga las estaciones fluviales del National Weather Service: por código o las más cercanas a su casa. «Buscar estaciones» más abajo las enumera. Guarde y cree los dispositivos en la pestaña Descubrir."
       },
       "links": [
         {
-          "url": "https://open-meteo.com/en/docs",
-          "label": { "en": "Open-Meteo documentation", "fr": "Documentation Open-Meteo" }
+          "url": "https://github.com/guim31/gladys-nwps/blob/main/docs/en.md",
+          "label": {
+            "en": "Setup guide",
+            "fr": "Guide d'installation",
+            "de": "Installationsanleitung",
+            "es": "Guía de instalación"
+          }
         }
       ]
     },
     {
-      "key": "latitude",
-      "type": "number",
-      "label": { "en": "Latitude", "fr": "Latitude" },
-      "description": {
-        "en": "Latitude used for the demo weather sensor.",
-        "fr": "Latitude utilisée par le capteur météo de démonstration."
+      "key": "about",
+      "type": "section",
+      "label": {
+        "en": "Sources and limits",
+        "fr": "Sources et limites",
+        "de": "Quellen und Grenzen",
+        "es": "Fuentes y límites"
       },
-      "placeholder": { "en": "e.g. 48.8566", "fr": "ex. 48.8566" },
-      "required": true,
-      "default": 48.8566,
-      "min": -90,
-      "max": 90
-    },
-    {
-      "key": "longitude",
-      "type": "number",
-      "label": { "en": "Longitude", "fr": "Longitude" },
       "description": {
-        "en": "Longitude used for the demo weather sensor.",
-        "fr": "Longitude utilisée par le capteur météo de démonstration."
+        "en": "Data of the NOAA National Weather Service (public domain), read without an account. A complement, not a safety alert system: the official warnings prevail. Not affiliated with NOAA or the NWS.",
+        "fr": "Données du National Weather Service de la NOAA (domaine public), lues sans compte. Un complément, pas un système d'alerte de sécurité : les alertes officielles priment. Non affiliée à la NOAA ni au NWS.",
+        "de": "Daten des National Weather Service der NOAA (gemeinfrei), ohne Konto gelesen. Eine Ergänzung, kein Sicherheitswarnsystem: Die offiziellen Warnungen haben Vorrang. Nicht mit NOAA oder NWS verbunden.",
+        "es": "Datos del National Weather Service de la NOAA (dominio público), leídos sin cuenta. Un complemento, no un sistema de alerta de seguridad: prevalecen los avisos oficiales. Sin afiliación con la NOAA ni el NWS."
       },
-      "placeholder": { "en": "e.g. 2.3522", "fr": "ex. 2.3522" },
-      "required": true,
-      "default": 2.3522,
-      "min": -180,
-      "max": 180
-    },
-    {
-      "key": "unit",
-      "type": "select",
-      "label": { "en": "Temperature unit", "fr": "Unité de température" },
-      "required": false,
-      "default": "celsius",
-      "options": [
-        { "value": "celsius", "label": { "en": "Celsius", "fr": "Celsius" } },
-        { "value": "fahrenheit", "label": { "en": "Fahrenheit", "fr": "Fahrenheit" } }
+      "links": [
+        {
+          "url": "https://water.noaa.gov",
+          "label": {
+            "en": "NWPS website",
+            "fr": "Site du NWPS",
+            "de": "Website des NWPS",
+            "es": "Sitio web del NWPS"
+          }
+        },
+        {
+          "url": "https://api.water.noaa.gov/nwps/v1/docs/",
+          "label": {
+            "en": "NWPS API",
+            "fr": "API du NWPS",
+            "de": "NWPS-API",
+            "es": "API del NWPS"
+          }
+        }
       ]
     },
     {
-      "key": "poll_frequency",
-      "type": "number",
-      "label": { "en": "Refresh interval (s)", "fr": "Intervalle de rafraîchissement (s)" },
+      "key": "gauges",
+      "type": "string",
+      "label": {
+        "en": "Gauge codes",
+        "fr": "Codes des stations",
+        "de": "Pegelcodes",
+        "es": "Códigos de estación"
+      },
       "description": {
-        "en": "How often sensors are polled, in seconds (one minute minimum).",
-        "fr": "Fréquence d'interrogation des capteurs, en secondes (une minute minimum)."
+        "en": "NWS codes separated by commas, or the addresses of their water.noaa.gov pages.",
+        "fr": "Codes NWS séparés par des virgules, ou les adresses de leurs pages water.noaa.gov.",
+        "de": "NWS-Codes durch Kommas getrennt, oder die Adressen ihrer Seiten auf water.noaa.gov.",
+        "es": "Códigos NWS separados por comas, o las direcciones de sus páginas en water.noaa.gov."
+      },
+      "placeholder": {
+        "en": "e.g. BRKM2, ARCF1",
+        "fr": "ex. BRKM2, ARCF1",
+        "de": "z. B. BRKM2, ARCF1",
+        "es": "p. ej. BRKM2, ARCF1"
       },
       "required": false,
-      "default": 300,
-      "min": 60,
-      "max": 3600
+      "default": ""
+    },
+    {
+      "key": "house",
+      "type": "select",
+      "source": "houses",
+      "label": {
+        "en": "House",
+        "fr": "Maison",
+        "de": "Haus",
+        "es": "Casa"
+      },
+      "description": {
+        "en": "The house whose location is used by \"Around my house\" and by \"Find gauges\". Empty: the first house of Gladys that has a location.",
+        "fr": "La maison dont la position sert à « Autour de ma maison » et à « Chercher des stations ». Vide : la première maison de Gladys qui a une position.",
+        "de": "Das Haus, dessen Standort „Rund um mein Haus“ und „Pegel suchen“ verwenden. Leer: das erste Haus in Gladys mit einem Standort.",
+        "es": "La casa cuya ubicación usan «Alrededor de mi casa» y «Buscar estaciones». Vacío: la primera casa de Gladys que tiene ubicación."
+      },
+      "required": false
+    },
+    {
+      "key": "around_home",
+      "type": "select",
+      "label": {
+        "en": "Around my house",
+        "fr": "Autour de ma maison",
+        "de": "Rund um mein Haus",
+        "es": "Alrededor de mi casa"
+      },
+      "description": {
+        "en": "Also follow the 3 nearest gauges in service within this distance of your house.",
+        "fr": "Suivre aussi les 3 stations en service les plus proches, à cette distance de votre maison.",
+        "de": "Verfolge auch die 3 nächsten Pegel in Betrieb in dieser Entfernung von deinem Haus.",
+        "es": "Seguir también las 3 estaciones en servicio más cercanas, a esta distancia de su casa."
+      },
+      "required": false,
+      "default": "0",
+      "options": [
+        {
+          "value": "0",
+          "label": {
+            "en": "Off",
+            "fr": "Désactivé",
+            "de": "Aus",
+            "es": "Desactivado"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "en": "5 mi (8 km)",
+            "fr": "5 mi (8 km)",
+            "de": "5 mi (8 km)",
+            "es": "5 mi (8 km)"
+          }
+        },
+        {
+          "value": "10",
+          "label": {
+            "en": "10 mi (16 km)",
+            "fr": "10 mi (16 km)",
+            "de": "10 mi (16 km)",
+            "es": "10 mi (16 km)"
+          }
+        },
+        {
+          "value": "25",
+          "label": {
+            "en": "25 mi (40 km)",
+            "fr": "25 mi (40 km)",
+            "de": "25 mi (40 km)",
+            "es": "25 mi (40 km)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "units",
+      "type": "select",
+      "label": {
+        "en": "Units",
+        "fr": "Unités",
+        "de": "Einheiten",
+        "es": "Unidades"
+      },
+      "description": {
+        "en": "Units of the new devices. Changing it: \"Update\" the devices in the Discover tab.",
+        "fr": "Unités des nouveaux appareils. Pour en changer : « Mettre à jour » les appareils dans l'onglet Découverte.",
+        "de": "Einheiten der neuen Geräte. Zum Ändern: die Geräte im Tab „Entdecken“ „Aktualisieren“.",
+        "es": "Unidades de los nuevos dispositivos. Para cambiarlas: «Actualizar» los dispositivos en la pestaña Descubrir."
+      },
+      "required": false,
+      "default": "us",
+      "options": [
+        {
+          "value": "us",
+          "label": {
+            "en": "Feet, cfs (as the NWS)",
+            "fr": "Pieds, cfs (comme le NWS)",
+            "de": "Fuß, cfs (wie der NWS)",
+            "es": "Pies, cfs (como el NWS)"
+          }
+        },
+        {
+          "value": "metric",
+          "label": {
+            "en": "Metres, m³/s",
+            "fr": "Mètres, m³/s",
+            "de": "Meter, m³/s",
+            "es": "Metros, m³/s"
+          }
+        }
+      ]
+    },
+    {
+      "key": "refresh_interval",
+      "type": "select",
+      "label": {
+        "en": "Refresh interval",
+        "fr": "Fréquence de mise à jour",
+        "de": "Aktualisierungsintervall",
+        "es": "Intervalo de actualización"
+      },
+      "description": {
+        "en": "Gauges report every 5 to 60 minutes, forecasts are issued a few times a day.",
+        "fr": "Les stations envoient une mesure toutes les 5 à 60 minutes, les prévisions sortent quelques fois par jour.",
+        "de": "Pegel melden alle 5 bis 60 Minuten, Prognosen erscheinen einige Male am Tag.",
+        "es": "Las estaciones miden cada 5 a 60 minutos, las previsiones se emiten unas veces al día."
+      },
+      "required": false,
+      "default": "15",
+      "options": [
+        {
+          "value": "15",
+          "label": {
+            "en": "15 minutes",
+            "fr": "15 minutes",
+            "de": "15 Minuten",
+            "es": "15 minutos"
+          }
+        },
+        {
+          "value": "20",
+          "label": {
+            "en": "20 minutes",
+            "fr": "20 minutes",
+            "de": "20 Minuten",
+            "es": "20 minutos"
+          }
+        },
+        {
+          "value": "30",
+          "label": {
+            "en": "30 minutes",
+            "fr": "30 minutes",
+            "de": "30 Minuten",
+            "es": "30 minutos"
+          }
+        }
+      ]
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "label": {
+        "en": "Language of the feature names",
+        "fr": "Langue des noms de fonctionnalités",
+        "de": "Sprache der Funktionsnamen",
+        "es": "Idioma de los nombres de las funciones"
+      },
+      "description": {
+        "en": "Names given to the features of new devices, and language of their texts (category, times) and of the scene variables.",
+        "fr": "Noms donnés aux fonctionnalités des nouveaux appareils, et langue de leurs textes (catégorie, heures) et des variables de scène.",
+        "de": "Namen der Funktionen neuer Geräte und Sprache ihrer Texte (Kategorie, Zeiten) und der Szenenvariablen.",
+        "es": "Nombres de las funciones de los nuevos dispositivos, e idioma de sus textos (categoría, horas) y de las variables de escena."
+      },
+      "required": false,
+      "default": "fr",
+      "options": [
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "Anglais",
+            "de": "Englisch",
+            "es": "Inglés"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "French",
+            "fr": "Français",
+            "de": "Französisch",
+            "es": "Francés"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "German",
+            "fr": "Allemand",
+            "de": "Deutsch",
+            "es": "Alemán"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Spanish",
+            "fr": "Espagnol",
+            "de": "Spanisch",
+            "es": "Español"
+          }
+        }
+      ]
     }
   ],
   "actions": [
     {
-      "key": "test_weather",
-      "label": { "en": "Test the weather provider", "fr": "Tester le fournisseur météo" },
-      "timeout_seconds": 30
-    },
-    {
-      "key": "identify",
-      "label": { "en": "Identify a device", "fr": "Identifier un appareil" },
+      "key": "search_gauges",
+      "label": {
+        "en": "Find gauges",
+        "fr": "Chercher des stations",
+        "de": "Pegel suchen",
+        "es": "Buscar estaciones"
+      },
+      "description": {
+        "en": "Lists the gauges in service around your house, nearest first, with their code, category and whether the NWS forecasts them.",
+        "fr": "Liste les stations en service autour de votre maison, la plus proche d'abord, avec leur code, leur catégorie et si le NWS les prévoit.",
+        "de": "Listet die Pegel in Betrieb rund um dein Haus auf, den nächsten zuerst, mit Code, Kategorie und ob der NWS sie vorhersagt.",
+        "es": "Enumera las estaciones en servicio alrededor de su casa, la más cercana primero, con su código, su categoría y si el NWS las prevé."
+      },
+      "timeout_seconds": 60,
       "fields": [
         {
-          "key": "device",
+          "key": "radius",
           "type": "select",
-          "source": "devices",
-          "label": { "en": "Device", "fr": "Appareil" },
-          "required": true
+          "label": {
+            "en": "Distance around the house",
+            "fr": "Distance autour de la maison",
+            "de": "Entfernung um das Haus",
+            "es": "Distancia alrededor de la casa"
+          },
+          "description": {
+            "en": "25 mi (40 km) when empty.",
+            "fr": "25 mi (40 km) si vide.",
+            "de": "25 mi (40 km), wenn leer.",
+            "es": "25 mi (40 km) si está vacío."
+          },
+          "required": false,
+          "options": [
+            {
+              "value": "10",
+              "label": {
+                "en": "10 mi (16 km)",
+                "fr": "10 mi (16 km)",
+                "de": "10 mi (16 km)",
+                "es": "10 mi (16 km)"
+              }
+            },
+            {
+              "value": "25",
+              "label": {
+                "en": "25 mi (40 km)",
+                "fr": "25 mi (40 km)",
+                "de": "25 mi (40 km)",
+                "es": "25 mi (40 km)"
+              }
+            },
+            {
+              "value": "50",
+              "label": {
+                "en": "50 mi (80 km)",
+                "fr": "50 mi (80 km)",
+                "de": "50 mi (80 km)",
+                "es": "50 mi (80 km)"
+              }
+            },
+            {
+              "value": "100",
+              "label": {
+                "en": "100 mi (160 km)",
+                "fr": "100 mi (160 km)",
+                "de": "100 mi (160 km)",
+                "es": "100 mi (160 km)"
+              }
+            }
+          ]
         }
       ]
     }
   ],
   "scene_triggers": [
     {
-      "key": "motion_detected",
-      "label": { "en": "Motion detected", "fr": "Mouvement détecté" },
+      "key": "flood_category_raised",
+      "label": {
+        "en": "River flood category rises",
+        "fr": "La catégorie de crue monte",
+        "de": "Hochwasserkategorie steigt",
+        "es": "La categoría de inundación sube"
+      },
       "description": {
-        "en": "A demo motion sensor saw a person or an animal move.",
-        "fr": "Un détecteur de démonstration a vu bouger une personne ou un animal."
+        "en": "The observed or forecast category of a gauge rises to action stage, minor, moderate or major flooding.",
+        "fr": "La catégorie observée ou prévue d'une station monte au seuil d'action, en crue mineure, modérée ou majeure.",
+        "de": "Die gemessene oder vorhergesagte Kategorie eines Pegels steigt auf Aktionspegel, leichtes, mittleres oder großes Hochwasser.",
+        "es": "La categoría observada o prevista de una estación sube a nivel de acción, inundación menor, moderada o mayor."
       },
       "fields": [
         {
-          "key": "device",
+          "key": "gauge",
           "type": "select",
           "source": "devices",
-          "label": { "en": "Sensor", "fr": "Détecteur" }
+          "label": {
+            "en": "Gauge",
+            "fr": "Station",
+            "de": "Pegel",
+            "es": "Estación"
+          }
         },
         {
-          "key": "target",
+          "key": "source",
           "type": "multi_select",
-          "label": { "en": "What moved", "fr": "Ce qui a bougé" },
+          "label": {
+            "en": "Observed or forecast",
+            "fr": "Observée ou prévue",
+            "de": "Gemessen oder vorhergesagt",
+            "es": "Observada o prevista"
+          },
           "options": [
-            { "value": "person", "label": { "en": "Person", "fr": "Personne" } },
-            { "value": "animal", "label": { "en": "Animal", "fr": "Animal" } }
+            {
+              "value": "observed",
+              "label": {
+                "en": "Observed",
+                "fr": "Observée",
+                "de": "Gemessen",
+                "es": "Observada"
+              }
+            },
+            {
+              "value": "forecast",
+              "label": {
+                "en": "Forecast",
+                "fr": "Prévue",
+                "de": "Vorhergesagt",
+                "es": "Prevista"
+              }
+            }
+          ]
+        },
+        {
+          "key": "category",
+          "type": "multi_select",
+          "label": {
+            "en": "New category",
+            "fr": "Nouvelle catégorie",
+            "de": "Neue Kategorie",
+            "es": "Nueva categoría"
+          },
+          "options": [
+            {
+              "value": "action",
+              "label": {
+                "en": "Action stage",
+                "fr": "Seuil d'action",
+                "de": "Aktionspegel",
+                "es": "Nivel de acción"
+              }
+            },
+            {
+              "value": "minor",
+              "label": {
+                "en": "Minor flooding",
+                "fr": "Crue mineure",
+                "de": "Leichtes Hochwasser",
+                "es": "Inundación menor"
+              }
+            },
+            {
+              "value": "moderate",
+              "label": {
+                "en": "Moderate flooding",
+                "fr": "Crue modérée",
+                "de": "Mittleres Hochwasser",
+                "es": "Inundación moderada"
+              }
+            },
+            {
+              "value": "major",
+              "label": {
+                "en": "Major flooding",
+                "fr": "Crue majeure",
+                "de": "Großes Hochwasser",
+                "es": "Inundación mayor"
+              }
+            }
           ]
         }
       ],
       "variables": [
         {
-          "key": "target",
+          "key": "gauge_name",
           "type": "string",
-          "label": { "en": "What moved", "fr": "Ce qui a bougé" }
-        }
-      ]
-    }
-  ],
-  "scene_actions": [
-    {
-      "key": "identify_device",
-      "label": { "en": "Identify a device", "fr": "Identifier un appareil" },
-      "description": {
-        "en": "Make a device signal itself (the demo light blinks).",
-        "fr": "Fait se signaler un appareil (la lampe de démonstration clignote)."
-      },
-      "timeout_seconds": 15,
-      "fields": [
+          "label": {
+            "en": "Gauge name",
+            "fr": "Nom de la station",
+            "de": "Name des Pegels",
+            "es": "Nombre de la estación"
+          }
+        },
         {
-          "key": "device",
-          "type": "select",
-          "source": "devices",
-          "label": { "en": "Device", "fr": "Appareil" },
-          "required": true
-        }
-      ],
-      "outputs": [
+          "key": "category_name",
+          "type": "string",
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          }
+        },
         {
-          "key": "signalled",
-          "type": "boolean",
-          "label": { "en": "Device signalled", "fr": "Appareil signalé" }
+          "key": "source_name",
+          "type": "string",
+          "label": {
+            "en": "Observed or forecast",
+            "fr": "Observée ou prévue",
+            "de": "Gemessen oder vorhergesagt",
+            "es": "Observada o prevista"
+          }
+        },
+        {
+          "key": "value",
+          "type": "string",
+          "label": {
+            "en": "Level or flow, with its unit",
+            "fr": "Hauteur ou débit, avec l'unité",
+            "de": "Pegel oder Abfluss mit Einheit",
+            "es": "Nivel o caudal, con su unidad"
+          }
+        },
+        {
+          "key": "time",
+          "type": "string",
+          "label": {
+            "en": "Time of the reading or crest",
+            "fr": "Heure de la mesure ou du pic",
+            "de": "Zeit der Messung oder des Scheitels",
+            "es": "Hora de la medición o de la cresta"
+          }
         }
       ]
     }
   ],
   "widgets": [
     {
-      "key": "demo_status",
-      "label": { "en": "Demo status", "fr": "État de la démo" },
-      "description": {
-        "en": "Live temperature and plug power, plug connection and observed location.",
-        "fr": "Température et puissance en direct, connexion de la prise, position observée."
+      "key": "gauges",
+      "label": {
+        "en": "River gauges",
+        "fr": "Stations de rivière",
+        "de": "Flusspegel",
+        "es": "Estaciones fluviales"
       },
-      "icon": "activity",
-      "action_timeout_seconds": 15
+      "description": {
+        "en": "Level and flood category of your gauges, or one gauge with its forecast crest.",
+        "fr": "Hauteur et catégorie de crue de vos stations, ou une station avec son pic prévu.",
+        "de": "Pegelstand und Hochwasserkategorie deiner Pegel, oder ein Pegel mit Scheitelprognose.",
+        "es": "Nivel y categoría de inundación de sus estaciones, o una estación con su cresta prevista."
+      },
+      "icon": "droplet",
+      "settings": [
+        {
+          "key": "gauge",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Gauge",
+            "fr": "Station",
+            "de": "Pegel",
+            "es": "Estación"
+          },
+          "description": {
+            "en": "Empty: every gauge on one line each.",
+            "fr": "Vide : toutes les stations, une ligne chacune.",
+            "de": "Leer: alle Pegel, je eine Zeile.",
+            "es": "Vacío: todas las estaciones, una línea cada una."
+          },
+          "required": false
+        },
+        {
+          "key": "show_link",
+          "type": "boolean",
+          "label": {
+            "en": "Show the water.noaa.gov button",
+            "fr": "Afficher le bouton water.noaa.gov",
+            "de": "Schaltfläche water.noaa.gov anzeigen",
+            "es": "Mostrar el botón water.noaa.gov"
+          },
+          "required": false,
+          "default": true
+        }
+      ]
     }
   ]
 }

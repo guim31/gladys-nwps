@@ -30,6 +30,19 @@ Gladys before reporting a problem.
 
 In scope: the code of this repository and the Docker image it publishes.
 
+What the integration handles:
+
+- **No secret**: the NWPS API is public and keyless, the configuration holds
+  gauge codes and settings only.
+- **Stored in `/data`**: `nwps.json`, the last flood categories of each
+  followed gauge (so the scene trigger fires once per rise across restarts).
+  Nothing else; deleting it is harmless.
+- **Location**: with "Around my house" or "Find gauges", the integration reads
+  the location of the house in Gladys (`location: true`) and sends the NWPS a
+  box around it rounded to 0.05° (about 5 km). The exact coordinates are
+  neither stored nor logged.
+- **Network**: outgoing HTTPS to `api.water.noaa.gov` only; no listening port.
+
 Out of scope: Gladys Assistant itself (see its
 [security policy](https://github.com/GladysAssistant/Gladys/security/policy)),
-and the third-party services and devices the integration talks to.
+and the NWPS service.
