@@ -86,6 +86,8 @@ test('the forecast categories: action now, minor flooding forecast; a withdrawn 
 });
 
 test('a reading older than a day is not published again', async (t) => {
+  // The SDK dates its heartbeat with Date.now: mock it from the start, not from the real date.
+  t.mock.timers.enable({ apis: ['Date'], now: START });
   const world = await createWorld({ config: { gauges: AAIT2 } });
   t.after(() => world.app.stop());
   const device = await create(world, AAIT2);
@@ -93,7 +95,7 @@ test('a reading older than a day is not published again', async (t) => {
     world.fake.states.filter((s) => s.device_feature_external_id === featureId(device, 'stage'))
       .length;
   const before = count();
-  t.mock.timers.enable({ apis: ['Date'], now: START + 13 * 60 * MINUTE });
+  t.mock.timers.setTime(START + 13 * 60 * MINUTE);
   world.clock.advance(13 * 60 * MINUTE);
   await world.monitor.refresh();
   assert.equal(count(), before + 1, 'the 12 h heartbeat');
